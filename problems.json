@@ -1,0 +1,186 @@
+[
+  {
+    "id": 1,
+    "title": "Print Hello Kitty's Face",
+    "description": "Write a program that prints an ASCII art of Hello Kitty's face.",
+    "difficulty": "Very Easy",
+    "hints": [
+      "Use System.out.println()",
+      "Each line should be printed separately"
+    ],
+    "solution": "public class Main { public static void main(String[] args) { System.out.println(\"                     .-.\"); System.out.println(\"          .-._    _.../   `,    _.-.\"); System.out.println(\"          |   `'-'    \\     \\_'`   |\"); System.out.println(\"          \\            '.__,/ `\\_.--,\"); System.out.println(\"           /                '._/     |\"); System.out.println(\"          /                    '.    /\"); System.out.println(\"         ;   _                  _'--;\"); System.out.println(\"      '--|- (_)       __       (_) -|--'\"); System.out.println(\"      .--|-          (__)          -|--.\"); System.out.println(\"       .-\\-                        -/-.\"); System.out.println(\"      '   '.                      .'   `\"); System.out.println(\"            '-._              _.-'\"); System.out.println(\"                `\"\"--....--\"\"`\"); } }",
+    "testCases": [
+      {
+        "input": "None",
+        "output": "                     .-.\n          .-._    _.../   `,    _.-.\n          |   `'-'    \\     \\_'`   |\n          \\            '.__,/ `\\_.--,\n           /                '._/     |\n          /                    '.    /\n         ;   _                  _'--;\n      '--|- (_)       __       (_) -|--'\n      .--|-          (__)          -|--.\n       .-\\-                        -/-.\n      '   '.                      .'   `\n            '-._              _.-'\n                `\"\"--....--\"\"`"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Hello Kitty's Name",
+    "description": "Store 'Hello Kitty' in a variable and print it.",
+    "difficulty": "Very Easy",
+    "hints": [
+      "Use a String variable",
+      "Use System.out.println()"
+    ],
+    "solution": "public class Main { public static void main(String[] args) { String name = \"Hello Kitty\"; System.out.println(name); } }",
+    "testCases": [
+      {
+        "input": "None",
+        "output": "Hello Kitty"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Kitty's Age in Cat Years",
+    "description": "Write a program that takes Hello Kitty's age as input and converts it to cat years (multiply by 7).",
+    "difficulty": "Easy",
+    "hints": [
+      "Use Scanner for input",
+      "Multiply by 7"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int age = sc.nextInt(); System.out.println(age * 7); } }",
+    "testCases": [
+      {
+        "input": "5",
+        "output": "35"
+      },
+      {
+        "input": "10",
+        "output": "70"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Kitty's Favorite Food",
+    "description": "Ask the user for Hello Kitty's favorite food and print it.",
+    "difficulty": "Easy",
+    "hints": [
+      "Use Scanner.nextLine()",
+      "Store input in a String variable"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String food = sc.nextLine(); System.out.println(\"Hello Kitty loves \" + food + \"!\"); } }",
+    "testCases": [
+      {
+        "input": "Fish",
+        "output": "Hello Kitty loves Fish!"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Kitty's Bow Color",
+    "description": "Write a program that asks the user for Hello Kitty's bow color and prints it in uppercase.",
+    "difficulty": "Easy",
+    "hints": [
+      "Use Scanner.nextLine()",
+      "Use .toUpperCase() method"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String color = sc.nextLine(); System.out.println(color.toUpperCase()); } }",
+    "testCases": [
+      {
+        "input": "pink",
+        "output": "PINK"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Kitty's Friendship Check",
+    "description": "Write a program that checks if a name entered by the user is Hello Kitty's best friend, 'Mimi'.",
+    "difficulty": "Easy",
+    "hints": [
+      "Use .equalsIgnoreCase() for string comparison"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String name = sc.nextLine(); if (name.equalsIgnoreCase(\"Mimi\")) { System.out.println(\"Best friends forever!\"); } else { System.out.println(\"Let's be friends!\"); } } }",
+    "testCases": [
+      {
+        "input": "Mimi",
+        "output": "Best friends forever!"
+      },
+      {
+        "input": "Daniel",
+        "output": "Let's be friends!"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Kitty's Age Comparison",
+    "description": "Write a program that asks for an age and checks if it is older or younger than Hello Kitty (48 years old).",
+    "difficulty": "Medium",
+    "hints": [
+      "Use Scanner to take input",
+      "Use if-else statements"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int age = sc.nextInt(); if (age > 48) { System.out.println(\"You're older than Hello Kitty!\"); } else { System.out.println(\"You're younger than Hello Kitty!\"); } } }",
+    "testCases": [
+      {
+        "input": "50",
+        "output": "You're older than Hello Kitty!"
+      },
+      {
+        "input": "30",
+        "output": "You're younger than Hello Kitty!"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Random Hello Kitty Fact",
+    "description": "Write a program that randomly selects and prints one fun fact about Hello Kitty.",
+    "difficulty": "Medium",
+    "hints": [
+      "Use Math.random() to generate a random number",
+      "Use an array or if statements for different facts"
+    ],
+    "solution": "import java.util.Random; public class Main { public static void main(String[] args) { String[] facts = {\"Hello Kitty was created in 1974.\", \"She has a twin sister named Mimi.\", \"Hello Kitty's real name is Kitty White.\", \"She is not a cat, but a little girl!\"}; Random rand = new Random(); System.out.println(facts[rand.nextInt(facts.length)]); } }",
+    "testCases": [
+      {
+        "input": "None",
+        "output": "One of the Hello Kitty facts"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Kitty's Jump Calculation",
+    "description": "Write a method that calculates how high Hello Kitty can jump based on her weight and energy level.",
+    "difficulty": "Medium",
+    "hints": [
+      "Use Math.sqrt() and Math.pow()",
+      "Create a method that returns a value"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static double jumpHeight(double weight, double energy) { return Math.sqrt(energy) / weight; } public static void main(String[] args) { Scanner sc = new Scanner(System.in); double weight = sc.nextDouble(); double energy = sc.nextDouble(); System.out.println(jumpHeight(weight, energy)); } }",
+    "testCases": [
+      {
+        "input": "3.5 25",
+        "output": "1.43"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Kitty's Lucky Number",
+    "description": "Write a program that asks the user for a number and checks if it matches Hello Kitty's lucky number (7).",
+    "difficulty": "Easy",
+    "hints": [
+      "Use if-else statements"
+    ],
+    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int num = sc.nextInt(); if (num == 7) { System.out.println(\"You guessed Hello Kitty's lucky number!\"); } else { System.out.println(\"Try again!\"); } } }",
+    "testCases": [
+      {
+        "input": "7",
+        "output": "You guessed Hello Kitty's lucky number!"
+      },
+      {
+        "input": "3",
+        "output": "Try again!"
+      }
+    ]
+  }
+]
