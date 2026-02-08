@@ -97,7 +97,7 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Arya Salem</h3>
+                <h3> </h3>
                 <p className="role">Lead Instructor</p>
                 <ul className="mini-list">
                   <li>• Teaches: Calc AB/BC, CSA, Geometry, Alg I/II, Precal</li>
@@ -113,7 +113,7 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Mohammed Alsouri</h3>
+                <h3> </h3>
                 <p className="role">Lead Instructor</p>
                 <ul className="mini-list">
                   <li>• Teaches: Calc AB/BC, CSA, Alg I/II, Precal</li>
@@ -130,7 +130,7 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Alice Yuan</h3>
+                <h3> </h3>
                 <p className="role">Marketing Manager & Instructor</p>
                 <ul className="mini-list">
                   <li>• Teaches CSA, Geometry, Alg I/II</li>

@@ -228,12 +228,16 @@ export default function Home() {
           <p>
             Interactive live classes designed to prepare students to excel in Math & CS over the school year.
           </p>
-          <Link to="/signup" className="cta-button" style={{ margin: "5px" }}>
+          <div className="hero-cta">
+            <Link to="/signup" className="cta-button">
             I'm Interested
           </Link>
-          <Link to="mailto:[your-email]" className="cta-button" style={{ margin: "5px" }}>
+          <Link to="mailto:[your-email]" className="cta-button">
             Contact Us
           </Link>
+          </div>
+
+          
         </div>
         <section className="stats">
           <div className="container stats-grid">
