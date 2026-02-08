@@ -16,11 +16,12 @@ export default function Courses() {
           <h1>Courses We Offer</h1>
           <p>
             We aim to teach the <b>entirety of each course in 8 weeks</b>, so
-            when the school year starts, you’re <b>set up to earn an A</b>.
+            when the school year starts, you’re <b>set up to earn an A</b>—with
+            structure, practice, and confidence.
           </p>
 
           <div className="pill-row">
-            <span className="pill">Small groups (12-15)</span>
+            <span className="pill">Small groups (6–8)</span>
             <span className="pill">Live instruction + practice</span>
             <span className="pill">Weekly quizzes + feedback</span>
             <span className="pill">AP-style prep (AP courses)</span>
@@ -30,7 +31,7 @@ export default function Courses() {
             <Link to="/signup" className="cta-button">
               Get a Free Trial Class
             </Link>
-            <a href="/courses#pricing" className="secondary-button">
+            <a href="#pricing" className="secondary-button">
               See Pricing
             </a>
           </div>
@@ -64,15 +65,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$25/hr</b>
+                  Group: <b>$30/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$40/hr</b>
+                  1 on 1: <b>$50/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/algebra1-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -95,15 +96,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$25/hr</b>
+                  Group: <b>$35/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$40/hr</b>
+                  1 on 1: <b>$55/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/geometry-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -126,15 +127,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$30/hr</b>
+                  Group: <b>$35/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$45/hr</b>
+                  1 on 1: <b>$55/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/algebra2-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -157,15 +158,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$30/hr</b>
+                  Group: <b>$40/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$45/hr</b>
+                  1 on 1: <b>$60/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/precalc-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -188,15 +189,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$40/hr</b>
+                  Group: <b>$45/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$55/hr</b>
+                  1 on 1: <b>$65/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/calcab-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -219,15 +220,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$40/hr</b>
+                  Group: <b>$45/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$55/hr</b>
+                  1 on 1: <b>$65/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/calcbc-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -250,15 +251,15 @@ export default function Courses() {
               </ul>
               <div className="course-bottom">
                 <div className="price">
-                  Group: <b>$30/hr</b>
+                  Group: <b>$40/hr</b>
                 </div>
                 <div className="price">
-                  1 on 1: <b>$45/hr</b>
+                  1 on 1: <b>$60/hr</b>
                 </div>
                 <a
                   className="outline-link"
                   href="outlines/apcsa-outline.pdf"
-                  target="_blank"
+                  download
                 >
                   Download course outline (PDF)
                 </a>
@@ -305,23 +306,23 @@ export default function Courses() {
               <ul className="pricing-list">
                 <li>
                   <span>Algebra I</span>
-                  <b>{getPrice("$25/hr", "$40/hr")}</b>
+                  <b>{getPrice("$30/hr", "$50/hr")}</b>
                 </li>
                 <li>
                   <span>Geometry</span>
-                  <b>{getPrice("$25/hr", "$40/hr")}</b>
+                  <b>{getPrice("$35/hr", "$55/hr")}</b>
                 </li>
                 <li>
                   <span>Algebra II</span>
-                  <b>{getPrice("$30/hr", "$45/hr")}</b>
+                  <b>{getPrice("$35/hr", "$55/hr")}</b>
                 </li>
                 <li>
                   <span>Precalculus</span>
-                  <b>{getPrice("$30/hr", "$45/hr")}</b>
+                  <b>{getPrice("$40/hr", "$60/hr")}</b>
                 </li>
                 <li>
                   <span>AP Computer Science A</span>
-                  <b>{getPrice("$30/hr", "$45/hr")}</b>
+                  <b>{getPrice("$40/hr", "$60/hr")}</b>
                 </li>
               </ul>
             </div>
@@ -333,11 +334,11 @@ export default function Courses() {
               <ul className="pricing-list">
                 <li>
                   <span>AP Calc AB</span>
-                  <b>{getPrice("$40/hr", "$55/hr")}</b>
+                  <b>{getPrice("$45/hr", "$65/hr")}</b>
                 </li>
                 <li>
                   <span>AP Calc BC</span>
-                  <b>{getPrice("$40/hr", "$55/hr")}</b>
+                  <b>{getPrice("$45/hr", "$65/hr")}</b>
                 </li>
               </ul>
 
@@ -351,18 +352,18 @@ export default function Courses() {
           </div>
 
           <p className="tiny muted pricing-note">
-            Group sizes are limited to 12-15 students. 1-on-1 instruction is
+            Group sizes are limited to 6–8 students. 1-on-1 instruction is
             limited and offered at a higher rate due to individualized pacing.
           </p>
         </div>
       </section>
 
       <section className="courses-cta">
-        <div style={{ paddingBottom: "60px" }} className="container cta-box">
-          <h2>Ready to register your child?</h2>
-          <p style={{ marginBottom: "40px" }}>Fill out our interest form! We'll follow up with more details. We even offer a free trial class.</p>
+        <div className="container cta-box">
+          <h2>Not sure which course to pick?</h2>
+          <p>Take the free trial class and we’ll help place you in the right group.</p>
           <Link to="/signup" className="cta-button">
-            I'm Interested
+            Claim Free Trial
           </Link>
         </div>
       </section>

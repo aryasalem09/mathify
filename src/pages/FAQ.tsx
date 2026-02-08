@@ -11,7 +11,7 @@
         and enthusiasm to learn!
       </p>
       <p>
-        <strong>How are classes conducted?</strong> Live via Google Meets with
+        <strong>How are classes conducted?</strong> Live via Zoom with
         interactive math sessions.
       </p>
     </section>
