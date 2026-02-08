@@ -64,7 +64,7 @@ export default function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/refund" element={<Refund />} />
-        <Route path="/lab" element={<Navigate to="/lab/problems" replace />} />
+        <Route path="/lab" element={<Navigate to="/lab/login" replace />} />
         <Route path="/lab/login" element={<LabLogin />} />
         <Route
           path="/lab/dashboard"

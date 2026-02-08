@@ -1,57 +1,39 @@
-import { useEffect, useState, type MouseEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ApiError, logout, me } from "../api";
+import { NavLink, Link } from "react-router-dom";
+import type { AuthState } from "../hooks/useLabSession";
+import "../lab.css";
 
-type AuthState = "loading" | "authed" | "guest";
+type LabSubNavProps = {
+  authState: AuthState;
+  onLogout: () => void;
+};
 
-export default function LabSubNav() {
-  const navigate = useNavigate();
-  const [authState, setAuthState] = useState<AuthState>("loading");
-
-  useEffect(() => {
-    let isMounted = true;
-    me()
-      .then(() => {
-        if (!isMounted) return;
-        setAuthState("authed");
-      })
-      .catch((err) => {
-        if (!isMounted) return;
-        if (err instanceof ApiError && err.status === 401) {
-          setAuthState("guest");
-        } else {
-          setAuthState("guest");
-        }
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const handleLogout = async (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    try {
-      await logout();
-    } finally {
-      navigate("/lab/login");
-      setAuthState("guest");
-    }
-  };
+export default function LabSubNav({ authState, onLogout }: LabSubNavProps) {
+  const navClass = ({ isActive }: { isActive: boolean }) =>
+    `lab-subnav-link${isActive ? " is-active" : ""}`;
 
   return (
     <nav className="lab-subnav">
-      <Link to="/">Back to Mathify</Link>
+      <Link className="lab-subnav-link" to="/">
+        Back to Mathify
+      </Link>
       {authState === "authed" ? (
         <>
-          <Link to="/lab/dashboard">Dashboard</Link>
-          <Link to="/lab/problems">Problems</Link>
-          <a href="/lab/login" onClick={handleLogout}>
+          <NavLink className={navClass} to="/lab/dashboard">
+            Dashboard
+          </NavLink>
+          <NavLink className={navClass} to="/lab/problems">
+            Problems
+          </NavLink>
+          <button className="lab-subnav-link" type="button" onClick={onLogout}>
             Logout
-          </a>
+          </button>
         </>
       ) : null}
-      {authState === "guest" ? <Link to="/lab/login">Login</Link> : null}
+      {authState === "guest" ? (
+        <NavLink className={navClass} to="/lab/login">
+          Login
+        </NavLink>
+      ) : null}
     </nav>
   );
 }

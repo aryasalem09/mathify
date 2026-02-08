@@ -64,18 +64,7 @@ export function me() {
 }
 
 export async function getProblems() {
-  const res = await fetch("/api/lab/problems", {
-    method: "GET",
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    throw new Error("failed to fetch problems");
-  }
-
-  const data = await res.json();
-
-
+  const data = await apiFetch<Problem[]>("/api/lab/problems");
   return Array.isArray(data) ? data : [];
 }
 

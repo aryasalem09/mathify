@@ -1,48 +1,113 @@
 [
   {
     "id": 1,
+    "slug": "hello-kitty-face",
     "title": "Print Hello Kitty's Face",
-    "description": "Write a program that prints an ASCII art of Hello Kitty's face.",
-    "difficulty": "Very Easy",
-    "hints": [
-      "Use System.out.println()",
-      "Each line should be printed separately"
+    "summary": "Print the provided ASCII art exactly as shown.",
+    "difficulty": "Easy",
+    "tags": ["Output", "ASCII Art"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Print the Hello Kitty face exactly as shown in the sample output. Every space and punctuation mark matters."
+      },
+      {
+        "type": "code",
+        "text": "                     .-.\n          .-._    _.../   `,    _.-.\n          |   `'-'    \\     \\_'`   |\n          \\            '.__,/ `\\_.--,\n           /                '._/     |\n          /                    '.    /\n         ;   _                  _'--;\n      '--|- (_)       __       (_) -|--'\n      .--|-          (__)          -|--.\n       .-\\-                        -/-.\n      '   '.                      .'   `\n            '-._              _.-'\n                `\"\"--....--\"\"`"
+      }
     ],
-    "solution": "public class Main { public static void main(String[] args) { System.out.println(\"                     .-.\"); System.out.println(\"          .-._    _.../   `,    _.-.\"); System.out.println(\"          |   `'-'    \\     \\_'`   |\"); System.out.println(\"          \\            '.__,/ `\\_.--,\"); System.out.println(\"           /                '._/     |\"); System.out.println(\"          /                    '.    /\"); System.out.println(\"         ;   _                  _'--;\"); System.out.println(\"      '--|- (_)       __       (_) -|--'\"); System.out.println(\"      .--|-          (__)          -|--.\"); System.out.println(\"       .-\\-                        -/-.\"); System.out.println(\"      '   '.                      .'   `\"); System.out.println(\"            '-._              _.-'\"); System.out.println(\"                `\"\"--....--\"\"`\"); } }",
+    "input": ["No input."],
+    "output": ["Print the ASCII art exactly as shown."],
+    "constraints": [
+      "Do not add extra blank lines.",
+      "Use standard output only."
+    ],
+    "examples": [
+      {
+        "input": "",
+        "output": "                     .-.\n          .-._    _.../   `,    _.-.\n          |   `'-'    \\     \\_'`   |\n          \\            '.__,/ `\\_.--,\n           /                '._/     |\n          /                    '.    /\n         ;   _                  _'--;\n      '--|- (_)       __       (_) -|--'\n      .--|-          (__)          -|--.\n       .-\\-                        -/-.\n      '   '.                      .'   `\n            '-._              _.-'\n                `\"\"--....--\"\"`"
+      }
+    ],
+    "hints": [
+      "Use System.out.println() for each line.",
+      "Keep the spacing exactly as shown."
+    ],
+    "starterCode": "public class Main {\n  public static void main(String[] args) {\n    // Print the ASCII art line by line.\n  }\n}\n",
+    "solution": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"                     .-.\");\n    System.out.println(\"          .-._    _.../   `,    _.-.\");\n    System.out.println(\"          |   `'-'    \\\\     \\\\_'`   |\");\n    System.out.println(\"          \\\\            '.__,/ `\\\\_.--,\");\n    System.out.println(\"           /                '._/     |\");\n    System.out.println(\"          /                    '.    /\");\n    System.out.println(\"         ;   _                  _'--;\");\n    System.out.println(\"      '--|- (_)       __       (_) -|--'\");\n    System.out.println(\"      .--|-          (__)          -|--.\");\n    System.out.println(\"       .-\\\\-                        -/-.\");\n    System.out.println(\"      '   '.                      .'   `\");\n    System.out.println(\"            '-._              _.-'\");\n    System.out.println(\"                `\\\"\\\"--....--\\\"\\\"`\");\n  }\n}\n",
     "testCases": [
       {
-        "input": "None",
+        "input": "",
         "output": "                     .-.\n          .-._    _.../   `,    _.-.\n          |   `'-'    \\     \\_'`   |\n          \\            '.__,/ `\\_.--,\n           /                '._/     |\n          /                    '.    /\n         ;   _                  _'--;\n      '--|- (_)       __       (_) -|--'\n      .--|-          (__)          -|--.\n       .-\\-                        -/-.\n      '   '.                      .'   `\n            '-._              _.-'\n                `\"\"--....--\"\"`"
       }
     ]
   },
   {
     "id": 2,
+    "slug": "hello-kitty-name",
     "title": "Hello Kitty's Name",
-    "description": "Store 'Hello Kitty' in a variable and print it.",
-    "difficulty": "Very Easy",
-    "hints": [
-      "Use a String variable",
-      "Use System.out.println()"
+    "summary": "Store a name in a variable and print it.",
+    "difficulty": "Easy",
+    "tags": ["Variables", "Output"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Create a String variable with the value **Hello Kitty** and print it on one line."
+      }
     ],
-    "solution": "public class Main { public static void main(String[] args) { String name = \"Hello Kitty\"; System.out.println(name); } }",
+    "input": ["No input."],
+    "output": ["Print `Hello Kitty` exactly."],
+    "constraints": ["Match capitalization and spacing."],
+    "examples": [
+      {
+        "input": "",
+        "output": "Hello Kitty"
+      }
+    ],
+    "hints": [
+      "Use a String variable.",
+      "Use System.out.println()."
+    ],
+    "starterCode": "public class Main {\n  public static void main(String[] args) {\n    // Create a String variable and print it.\n  }\n}\n",
+    "solution": "public class Main {\n  public static void main(String[] args) {\n    String name = \"Hello Kitty\";\n    System.out.println(name);\n  }\n}\n",
     "testCases": [
       {
-        "input": "None",
+        "input": "",
         "output": "Hello Kitty"
       }
     ]
   },
   {
     "id": 3,
+    "slug": "kitty-age-cat-years",
     "title": "Kitty's Age in Cat Years",
-    "description": "Write a program that takes Hello Kitty's age as input and converts it to cat years (multiply by 7).",
+    "summary": "Convert a human age into cat years.",
     "difficulty": "Easy",
-    "hints": [
-      "Use Scanner for input",
-      "Multiply by 7"
+    "tags": ["Arithmetic", "Input"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer age and convert it to cat years by multiplying by 7."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int age = sc.nextInt(); System.out.println(age * 7); } }",
+    "input": ["One integer age."],
+    "output": ["One integer representing age * 7."],
+    "constraints": ["0 <= age <= 120."],
+    "examples": [
+      {
+        "input": "5",
+        "output": "35"
+      },
+      {
+        "input": "10",
+        "output": "70"
+      }
+    ],
+    "hints": ["Use Scanner to read the number.", "Multiply by 7."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the age and print age * 7.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int age = sc.nextInt();\n    System.out.println(age * 7);\n  }\n}\n",
     "testCases": [
       {
         "input": "5",
@@ -56,14 +121,30 @@
   },
   {
     "id": 4,
+    "slug": "kitty-favorite-food",
     "title": "Kitty's Favorite Food",
-    "description": "Ask the user for Hello Kitty's favorite food and print it.",
+    "summary": "Echo the favorite food in a friendly sentence.",
     "difficulty": "Easy",
-    "hints": [
-      "Use Scanner.nextLine()",
-      "Store input in a String variable"
+    "tags": ["Strings", "Input"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a full line describing Hello Kitty's favorite food and print the sentence shown in the output section."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String food = sc.nextLine(); System.out.println(\"Hello Kitty loves \" + food + \"!\"); } }",
+    "input": ["One line of text (may include spaces)."],
+    "output": ["Print `Hello Kitty loves X!` where X is the line you read."],
+    "constraints": ["Preserve the original capitalization of the food."],
+    "examples": [
+      {
+        "input": "Fish",
+        "output": "Hello Kitty loves Fish!"
+      }
+    ],
+    "hints": ["Use Scanner.nextLine()."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the food and print the sentence.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String food = sc.nextLine();\n    System.out.println(\"Hello Kitty loves \" + food + \"!\");\n  }\n}\n",
     "testCases": [
       {
         "input": "Fish",
@@ -73,14 +154,30 @@
   },
   {
     "id": 5,
+    "slug": "kitty-bow-color",
     "title": "Kitty's Bow Color",
-    "description": "Write a program that asks the user for Hello Kitty's bow color and prints it in uppercase.",
+    "summary": "Print the bow color in uppercase.",
     "difficulty": "Easy",
-    "hints": [
-      "Use Scanner.nextLine()",
-      "Use .toUpperCase() method"
+    "tags": ["Strings"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read one line containing the bow color and print it in uppercase."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String color = sc.nextLine(); System.out.println(color.toUpperCase()); } }",
+    "input": ["One line of text."],
+    "output": ["The same text in uppercase."],
+    "constraints": ["1 <= length <= 50."],
+    "examples": [
+      {
+        "input": "pink",
+        "output": "PINK"
+      }
+    ],
+    "hints": ["Use toUpperCase()."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the color and print it in uppercase.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String color = sc.nextLine();\n    System.out.println(color.toUpperCase());\n  }\n}\n",
     "testCases": [
       {
         "input": "pink",
@@ -90,13 +187,37 @@
   },
   {
     "id": 6,
+    "slug": "kitty-friend-check",
     "title": "Kitty's Friendship Check",
-    "description": "Write a program that checks if a name entered by the user is Hello Kitty's best friend, 'Mimi'.",
+    "summary": "Check if the name is Mimi (case-insensitive).",
     "difficulty": "Easy",
-    "hints": [
-      "Use .equalsIgnoreCase() for string comparison"
+    "tags": ["Strings", "Conditionals"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a name and check if it matches **Mimi** (case-insensitive). Print the correct message based on the result."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); String name = sc.nextLine(); if (name.equalsIgnoreCase(\"Mimi\")) { System.out.println(\"Best friends forever!\"); } else { System.out.println(\"Let's be friends!\"); } } }",
+    "input": ["One line containing a name."],
+    "output": [
+      "Print `Best friends forever!` if the name is Mimi.",
+      "Otherwise print `Let's be friends!`."
+    ],
+    "constraints": ["Name length is at least 1 character."],
+    "examples": [
+      {
+        "input": "Mimi",
+        "output": "Best friends forever!"
+      },
+      {
+        "input": "Daniel",
+        "output": "Let's be friends!"
+      }
+    ],
+    "hints": ["Use equalsIgnoreCase()."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the name and compare it to Mimi.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String name = sc.nextLine();\n    if (name.equalsIgnoreCase(\"Mimi\")) {\n      System.out.println(\"Best friends forever!\");\n    } else {\n      System.out.println(\"Let's be friends!\");\n    }\n  }\n}\n",
     "testCases": [
       {
         "input": "Mimi",
@@ -110,14 +231,37 @@
   },
   {
     "id": 7,
+    "slug": "kitty-age-compare",
     "title": "Kitty's Age Comparison",
-    "description": "Write a program that asks for an age and checks if it is older or younger than Hello Kitty (48 years old).",
-    "difficulty": "Medium",
-    "hints": [
-      "Use Scanner to take input",
-      "Use if-else statements"
+    "summary": "Compare an age to Hello Kitty's age of 48.",
+    "difficulty": "Easy",
+    "tags": ["Conditionals"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer age and compare it to Hello Kitty's age (48). Print the correct message."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int age = sc.nextInt(); if (age > 48) { System.out.println(\"You're older than Hello Kitty!\"); } else { System.out.println(\"You're younger than Hello Kitty!\"); } } }",
+    "input": ["One integer age."],
+    "output": [
+      "Print `You're older than Hello Kitty!` if age > 48.",
+      "Otherwise print `You're younger than Hello Kitty!`."
+    ],
+    "constraints": ["0 <= age <= 120."],
+    "examples": [
+      {
+        "input": "50",
+        "output": "You're older than Hello Kitty!"
+      },
+      {
+        "input": "30",
+        "output": "You're younger than Hello Kitty!"
+      }
+    ],
+    "hints": ["Use an if-else statement."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the age and compare to 48.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int age = sc.nextInt();\n    if (age > 48) {\n      System.out.println(\"You're older than Hello Kitty!\");\n    } else {\n      System.out.println(\"You're younger than Hello Kitty!\");\n    }\n  }\n}\n",
     "testCases": [
       {
         "input": "50",
@@ -131,47 +275,124 @@
   },
   {
     "id": 8,
-    "title": "Random Hello Kitty Fact",
-    "description": "Write a program that randomly selects and prints one fun fact about Hello Kitty.",
-    "difficulty": "Medium",
-    "hints": [
-      "Use Math.random() to generate a random number",
-      "Use an array or if statements for different facts"
+    "slug": "kitty-fact-lookup",
+    "title": "Hello Kitty Fact Lookup",
+    "summary": "Choose a fact by number and print it.",
+    "difficulty": "Easy",
+    "tags": ["Conditionals", "Strings"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer from 1 to 4 and print the corresponding fact."
+      },
+      {
+        "type": "list",
+        "items": [
+          "1 - Hello Kitty was created in 1974.",
+          "2 - She has a twin sister named Mimi.",
+          "3 - Hello Kitty's real name is Kitty White.",
+          "4 - She is not a cat, but a little girl!"
+        ]
+      }
     ],
-    "solution": "import java.util.Random; public class Main { public static void main(String[] args) { String[] facts = {\"Hello Kitty was created in 1974.\", \"She has a twin sister named Mimi.\", \"Hello Kitty's real name is Kitty White.\", \"She is not a cat, but a little girl!\"}; Random rand = new Random(); System.out.println(facts[rand.nextInt(facts.length)]); } }",
+    "input": ["One integer between 1 and 4."],
+    "output": ["The fact that matches the number."],
+    "constraints": ["The input is always between 1 and 4."],
+    "examples": [
+      {
+        "input": "2",
+        "output": "She has a twin sister named Mimi."
+      }
+    ],
+    "hints": ["Use a switch statement or if-else chain."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the number and print the fact.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int choice = sc.nextInt();\n    String fact;\n    switch (choice) {\n      case 1:\n        fact = \"Hello Kitty was created in 1974.\";\n        break;\n      case 2:\n        fact = \"She has a twin sister named Mimi.\";\n        break;\n      case 3:\n        fact = \"Hello Kitty's real name is Kitty White.\";\n        break;\n      default:\n        fact = \"She is not a cat, but a little girl!\";\n        break;\n    }\n    System.out.println(fact);\n  }\n}\n",
     "testCases": [
       {
-        "input": "None",
-        "output": "One of the Hello Kitty facts"
+        "input": "1",
+        "output": "Hello Kitty was created in 1974."
+      },
+      {
+        "input": "4",
+        "output": "She is not a cat, but a little girl!"
       }
     ]
   },
   {
     "id": 9,
-    "title": "Kitty's Jump Calculation",
-    "description": "Write a method that calculates how high Hello Kitty can jump based on her weight and energy level.",
+    "slug": "kitty-jump-height",
+    "title": "Kitty's Jump Height",
+    "summary": "Compute the jump height from weight and energy.",
     "difficulty": "Medium",
-    "hints": [
-      "Use Math.sqrt() and Math.pow()",
-      "Create a method that returns a value"
+    "tags": ["Math", "Functions"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Given Kitty's weight and energy, compute the jump height using the formula `sqrt(energy) / weight`. Print the result rounded to two decimals."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static double jumpHeight(double weight, double energy) { return Math.sqrt(energy) / weight; } public static void main(String[] args) { Scanner sc = new Scanner(System.in); double weight = sc.nextDouble(); double energy = sc.nextDouble(); System.out.println(jumpHeight(weight, energy)); } }",
+    "input": ["Two numbers: weight and energy."],
+    "output": ["One number formatted to exactly two decimal places."],
+    "constraints": ["weight > 0", "energy >= 0"],
+    "examples": [
+      {
+        "input": "3.5 25",
+        "output": "1.43"
+      },
+      {
+        "input": "4 9",
+        "output": "0.75"
+      }
+    ],
+    "hints": ["Use Math.sqrt and printf with %.2f."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read weight and energy, then print the height to 2 decimals.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    double weight = sc.nextDouble();\n    double energy = sc.nextDouble();\n    double height = Math.sqrt(energy) / weight;\n    System.out.printf(\"%.2f%n\", height);\n  }\n}\n",
     "testCases": [
       {
         "input": "3.5 25",
         "output": "1.43"
+      },
+      {
+        "input": "4 9",
+        "output": "0.75"
       }
     ]
   },
   {
     "id": 10,
+    "slug": "kitty-lucky-number",
     "title": "Kitty's Lucky Number",
-    "description": "Write a program that asks the user for a number and checks if it matches Hello Kitty's lucky number (7).",
+    "summary": "Check if the number matches 7.",
     "difficulty": "Easy",
-    "hints": [
-      "Use if-else statements"
+    "tags": ["Conditionals"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer and check if it is Hello Kitty's lucky number (7)."
+      }
     ],
-    "solution": "import java.util.Scanner; public class Main { public static void main(String[] args) { Scanner sc = new Scanner(System.in); int num = sc.nextInt(); if (num == 7) { System.out.println(\"You guessed Hello Kitty's lucky number!\"); } else { System.out.println(\"Try again!\"); } } }",
+    "input": ["One integer."],
+    "output": [
+      "Print `You guessed Hello Kitty's lucky number!` if the number is 7.",
+      "Otherwise print `Try again!`."
+    ],
+    "constraints": ["-1000 <= number <= 1000."],
+    "examples": [
+      {
+        "input": "7",
+        "output": "You guessed Hello Kitty's lucky number!"
+      },
+      {
+        "input": "3",
+        "output": "Try again!"
+      }
+    ],
+    "hints": ["Use an if-else statement."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the number and compare to 7.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int num = sc.nextInt();\n    if (num == 7) {\n      System.out.println(\"You guessed Hello Kitty's lucky number!\");\n    } else {\n      System.out.println(\"Try again!\");\n    }\n  }\n}\n",
     "testCases": [
       {
         "input": "7",
@@ -180,6 +401,465 @@
       {
         "input": "3",
         "output": "Try again!"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "slug": "name-formatter",
+    "title": "Name Formatter",
+    "summary": "Reformat a first and last name.",
+    "difficulty": "Easy",
+    "tags": ["Strings"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a first name and a last name, then print them in the format `Last, First`."
+      }
+    ],
+    "input": ["Two words: first name then last name."],
+    "output": ["The last name, a comma, a space, and the first name."],
+    "constraints": ["Names contain only letters.", "Each name is at least 1 character."],
+    "examples": [
+      {
+        "input": "Kitty White",
+        "output": "White, Kitty"
+      }
+    ],
+    "hints": ["Use Scanner.next() to read each word."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read first and last name, then print Last, First.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String first = sc.next();\n    String last = sc.next();\n    System.out.println(last + \", \" + first);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "Kitty White",
+        "output": "White, Kitty"
+      },
+      {
+        "input": "Mimi Smith",
+        "output": "Smith, Mimi"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "slug": "vowel-count",
+    "title": "Vowel Count",
+    "summary": "Count the vowels in a line of text.",
+    "difficulty": "Easy",
+    "tags": ["Strings", "Counting"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a line of text and count how many vowels it contains. Vowels are a, e, i, o, and u (case-insensitive)."
+      }
+    ],
+    "input": ["One line of text."],
+    "output": ["A single integer representing the vowel count."],
+    "constraints": ["The line length is at most 200 characters."],
+    "examples": [
+      {
+        "input": "Hello Kitty",
+        "output": "3"
+      },
+      {
+        "input": "AEIOU",
+        "output": "5"
+      }
+    ],
+    "hints": ["Convert the string to lowercase.", "Check each character."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the line and count vowels.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String line = sc.nextLine().toLowerCase();\n    int count = 0;\n    for (int i = 0; i < line.length(); i++) {\n      char c = line.charAt(i);\n      if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {\n        count++;\n      }\n    }\n    System.out.println(count);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "Hello Kitty",
+        "output": "3"
+      },
+      {
+        "input": "AEIOU",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "slug": "array-sum",
+    "title": "Array Sum",
+    "summary": "Compute the sum of a list of integers.",
+    "difficulty": "Easy",
+    "tags": ["Arrays", "Loops"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer n followed by n integers. Print their sum."
+      }
+    ],
+    "input": ["An integer n followed by n integers."],
+    "output": ["The sum of the n integers."],
+    "constraints": ["1 <= n <= 100", "Each integer fits in a 32-bit signed range."],
+    "examples": [
+      {
+        "input": "5 1 2 3 4 5",
+        "output": "15"
+      }
+    ],
+    "hints": ["Use a loop to accumulate the sum."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read n, then read n numbers and sum them.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    long sum = 0;\n    for (int i = 0; i < n; i++) {\n      sum += sc.nextInt();\n    }\n    System.out.println(sum);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "5 1 2 3 4 5",
+        "output": "15"
+      },
+      {
+        "input": "3 -1 10 -4",
+        "output": "5"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "slug": "even-odd-count",
+    "title": "Even and Odd Count",
+    "summary": "Count the number of even and odd values.",
+    "difficulty": "Easy",
+    "tags": ["Arrays", "Counting"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read n integers and count how many are even and how many are odd."
+      }
+    ],
+    "input": ["An integer n followed by n integers."],
+    "output": [
+      "Print `Evens: X` on the first line.",
+      "Print `Odds: Y` on the second line."
+    ],
+    "constraints": ["1 <= n <= 100", "Each integer fits in a 32-bit signed range."],
+    "examples": [
+      {
+        "input": "6 1 2 3 4 5 6",
+        "output": "Evens: 3\nOdds: 3"
+      }
+    ],
+    "hints": ["Use value % 2 to detect even numbers."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read n, then count evens and odds.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    int evens = 0;\n    int odds = 0;\n    for (int i = 0; i < n; i++) {\n      int value = sc.nextInt();\n      if (value % 2 == 0) {\n        evens++;\n      } else {\n        odds++;\n      }\n    }\n    System.out.println(\"Evens: \" + evens);\n    System.out.println(\"Odds: \" + odds);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "6 1 2 3 4 5 6",
+        "output": "Evens: 3\nOdds: 3"
+      },
+      {
+        "input": "4 7 8 9 10",
+        "output": "Evens: 2\nOdds: 2"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "slug": "diagonal-sum",
+    "title": "Diagonal Sum",
+    "summary": "Sum the main diagonal of a square matrix.",
+    "difficulty": "Medium",
+    "tags": ["2D Arrays"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read an integer n followed by an n x n matrix. Print the sum of the main diagonal (where row index equals column index)."
+      }
+    ],
+    "input": ["An integer n followed by n x n integers."],
+    "output": ["The diagonal sum."],
+    "constraints": ["1 <= n <= 20", "Matrix values fit in a 32-bit signed range."],
+    "examples": [
+      {
+        "input": "3 1 2 3 4 5 6 7 8 9",
+        "output": "15"
+      }
+    ],
+    "hints": ["Only add values where i == j."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read n and the matrix, then sum the diagonal.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    int sum = 0;\n    for (int i = 0; i < n; i++) {\n      for (int j = 0; j < n; j++) {\n        int value = sc.nextInt();\n        if (i == j) {\n          sum += value;\n        }\n      }\n    }\n    System.out.println(sum);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "3 1 2 3 4 5 6 7 8 9",
+        "output": "15"
+      },
+      {
+        "input": "2 5 1 9 2",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "slug": "max-row-sum",
+    "title": "Row with Maximum Sum",
+    "summary": "Find the row index with the largest sum.",
+    "difficulty": "Medium",
+    "tags": ["2D Arrays", "Simulation"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a matrix with r rows and c columns. Compute the sum of each row and print the index (0-based) of the row with the largest sum. If there is a tie, print the smallest index."
+      }
+    ],
+    "input": ["Two integers r and c followed by r x c integers."],
+    "output": ["The 0-based index of the row with the largest sum."],
+    "constraints": ["1 <= r, c <= 20", "Matrix values fit in a 32-bit signed range."],
+    "examples": [
+      {
+        "input": "3 3 1 2 3 4 5 6 7 8 9",
+        "output": "2"
+      }
+    ],
+    "hints": ["Track the best sum and index as you scan rows."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read r and c, then find the row with the largest sum.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int rows = sc.nextInt();\n    int cols = sc.nextInt();\n    int bestIndex = 0;\n    int bestSum = Integer.MIN_VALUE;\n    for (int r = 0; r < rows; r++) {\n      int rowSum = 0;\n      for (int c = 0; c < cols; c++) {\n        rowSum += sc.nextInt();\n      }\n      if (rowSum > bestSum) {\n        bestSum = rowSum;\n        bestIndex = r;\n      }\n    }\n    System.out.println(bestIndex);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "3 3 1 2 3 4 5 6 7 8 9",
+        "output": "2"
+      },
+      {
+        "input": "2 4 1 1 1 1 2 2 2 2",
+        "output": "1"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "slug": "first-unique-character",
+    "title": "First Unique Character",
+    "summary": "Find the index of the first non-repeating character.",
+    "difficulty": "Medium",
+    "tags": ["Strings", "Counting"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a string and return the index (0-based) of the first character that appears exactly once. If none exist, print -1."
+      }
+    ],
+    "input": ["One line containing a string (no spaces)."],
+    "output": ["The index of the first unique character, or -1."],
+    "constraints": ["1 <= length <= 200", "Input contains only ASCII letters."],
+    "examples": [
+      {
+        "input": "aabccdeff",
+        "output": "2"
+      },
+      {
+        "input": "aabb",
+        "output": "-1"
+      }
+    ],
+    "hints": ["Count character frequencies first, then scan again."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the string and find the first unique character.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String s = sc.nextLine();\n    int[] freq = new int[256];\n    for (int i = 0; i < s.length(); i++) {\n      freq[s.charAt(i)]++;\n    }\n    int index = -1;\n    for (int i = 0; i < s.length(); i++) {\n      if (freq[s.charAt(i)] == 1) {\n        index = i;\n        break;\n      }\n    }\n    System.out.println(index);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "aabccdeff",
+        "output": "2"
+      },
+      {
+        "input": "aabb",
+        "output": "-1"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "slug": "max-subarray-sum-k",
+    "title": "Max Sum of Length K",
+    "summary": "Find the maximum sum of any contiguous subarray of length k.",
+    "difficulty": "Hard",
+    "tags": ["Arrays", "Sliding Window"],
+    "points": 15,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read n, k, and then n integers. Find the maximum sum of any contiguous subarray of length k."
+      }
+    ],
+    "input": ["An integer n, an integer k, then n integers."],
+    "output": ["The maximum subarray sum of length k."],
+    "constraints": ["1 <= k <= n <= 2000", "Array values fit in a 32-bit signed range."],
+    "examples": [
+      {
+        "input": "6 3 2 1 5 1 3 2",
+        "output": "9"
+      }
+    ],
+    "hints": ["Use a sliding window to keep the sum in O(n)."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read n and k, then compute the max sum of length k.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    int k = sc.nextInt();\n    int[] arr = new int[n];\n    for (int i = 0; i < n; i++) {\n      arr[i] = sc.nextInt();\n    }\n    int windowSum = 0;\n    for (int i = 0; i < k; i++) {\n      windowSum += arr[i];\n    }\n    int maxSum = windowSum;\n    for (int i = k; i < n; i++) {\n      windowSum += arr[i] - arr[i - k];\n      if (windowSum > maxSum) {\n        maxSum = windowSum;\n      }\n    }\n    System.out.println(maxSum);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "6 3 2 1 5 1 3 2",
+        "output": "9"
+      },
+      {
+        "input": "5 2 4 -1 2 10 -2",
+        "output": "12"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "slug": "sum-of-digits-recursive",
+    "title": "Sum of Digits (Recursive)",
+    "summary": "Use recursion to sum the digits of a number.",
+    "difficulty": "Medium",
+    "tags": ["Recursion"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a non-negative integer and compute the sum of its digits using recursion."
+      }
+    ],
+    "input": ["One non-negative integer."],
+    "output": ["The sum of its digits."],
+    "constraints": ["0 <= n <= 1,000,000,000"],
+    "examples": [
+      {
+        "input": "4029",
+        "output": "15"
+      }
+    ],
+    "hints": ["Use n % 10 and n / 10 in a recursive function."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  static int sumDigits(int n) {\n    // TODO: implement recursion.\n    return 0;\n  }\n\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    System.out.println(sumDigits(n));\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  static int sumDigits(int n) {\n    if (n < 10) {\n      return n;\n    }\n    return (n % 10) + sumDigits(n / 10);\n  }\n\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    int n = sc.nextInt();\n    System.out.println(sumDigits(n));\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "4029",
+        "output": "15"
+      },
+      {
+        "input": "7",
+        "output": "7"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "slug": "palindrome-check",
+    "title": "Palindrome Check",
+    "summary": "Determine if a phrase is a palindrome.",
+    "difficulty": "Easy",
+    "tags": ["Strings", "Two Pointers"],
+    "points": 5,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Read a line of text. Ignore spaces and case, then decide if the string is a palindrome. Print YES or NO."
+      }
+    ],
+    "input": ["One line of text."],
+    "output": ["Print `YES` if it is a palindrome, otherwise print `NO`."],
+    "constraints": ["Line length is at most 200 characters."],
+    "examples": [
+      {
+        "input": "Race car",
+        "output": "YES"
+      },
+      {
+        "input": "Hello",
+        "output": "NO"
+      }
+    ],
+    "hints": ["Remove spaces and compare from both ends."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the line, clean it, and check for palindrome.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String line = sc.nextLine();\n    String cleaned = line.replaceAll(\"\\\\s+\", \"\").toLowerCase();\n    int left = 0;\n    int right = cleaned.length() - 1;\n    boolean isPalindrome = true;\n    while (left < right) {\n      if (cleaned.charAt(left) != cleaned.charAt(right)) {\n        isPalindrome = false;\n        break;\n      }\n      left++;\n      right--;\n    }\n    System.out.println(isPalindrome ? \"YES\" : \"NO\");\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "Race car",
+        "output": "YES"
+      },
+      {
+        "input": "Hello",
+        "output": "NO"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "slug": "student-average-oop",
+    "title": "Student Average",
+    "summary": "Use a class to compute a student's average score.",
+    "difficulty": "Medium",
+    "tags": ["OOP", "Classes"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "Create a Student class with a name and three scores. Compute the average score and print it with one decimal place."
+      }
+    ],
+    "input": ["A name followed by three integer scores."],
+    "output": ["Print `Name: average` with one decimal place."],
+    "constraints": ["Scores are between 0 and 100."],
+    "examples": [
+      {
+        "input": "Kitty 90 80 100",
+        "output": "Kitty: 90.0"
+      }
+    ],
+    "hints": ["Average = (s1 + s2 + s3) / 3.0"],
+    "starterCode": "import java.util.Scanner;\n\nclass Student {\n  String name;\n  int s1;\n  int s2;\n  int s3;\n\n  Student(String name, int s1, int s2, int s3) {\n    this.name = name;\n    this.s1 = s1;\n    this.s2 = s2;\n    this.s3 = s3;\n  }\n\n  double getAverage() {\n    // TODO: return the average score.\n    return 0;\n  }\n}\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read input, create Student, and print the average.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\nclass Student {\n  String name;\n  int s1;\n  int s2;\n  int s3;\n\n  Student(String name, int s1, int s2, int s3) {\n    this.name = name;\n    this.s1 = s1;\n    this.s2 = s2;\n    this.s3 = s3;\n  }\n\n  double getAverage() {\n    return (s1 + s2 + s3) / 3.0;\n  }\n}\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String name = sc.next();\n    int s1 = sc.nextInt();\n    int s2 = sc.nextInt();\n    int s3 = sc.nextInt();\n    Student student = new Student(name, s1, s2, s3);\n    System.out.printf(\"%s: %.1f%n\", student.name, student.getAverage());\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "Kitty 90 80 100",
+        "output": "Kitty: 90.0"
+      },
+      {
+        "input": "Mimi 70 75 85",
+        "output": "Mimi: 76.7"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "slug": "robot-moves",
+    "title": "Robot Moves",
+    "summary": "Simulate moves on a grid.",
+    "difficulty": "Medium",
+    "tags": ["Simulation"],
+    "points": 10,
+    "statement": [
+      {
+        "type": "paragraph",
+        "text": "A robot starts at (0, 0). Read a string of commands (N, E, S, W) and compute the final position."
+      }
+    ],
+    "input": ["One line containing the command string."],
+    "output": ["Two integers: final x and y coordinates separated by a space."],
+    "constraints": ["1 <= length <= 1000", "Commands contain only N, E, S, W."],
+    "examples": [
+      {
+        "input": "NNEESW",
+        "output": "1 1"
+      }
+    ],
+    "hints": ["Use a loop and update x/y for each character."],
+    "starterCode": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    // Read the command string and update the position.\n  }\n}\n",
+    "solution": "import java.util.Scanner;\n\npublic class Main {\n  public static void main(String[] args) {\n    Scanner sc = new Scanner(System.in);\n    String commands = sc.nextLine().trim();\n    int x = 0;\n    int y = 0;\n    for (int i = 0; i < commands.length(); i++) {\n      char c = commands.charAt(i);\n      switch (c) {\n        case 'N':\n          y++;\n          break;\n        case 'S':\n          y--;\n          break;\n        case 'E':\n          x++;\n          break;\n        case 'W':\n          x--;\n          break;\n        default:\n          break;\n      }\n    }\n    System.out.println(x + \" \" + y);\n  }\n}\n",
+    "testCases": [
+      {
+        "input": "NNEESW",
+        "output": "1 1"
+      },
+      {
+        "input": "SSWWWN",
+        "output": "-3 -1"
       }
     ]
   }

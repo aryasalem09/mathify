@@ -63,14 +63,17 @@ export default async function handler(req, res) {
       }
     }
 
-    if (correctCount === problem.testCases.length) {
-      sendJson(res, 200, { output: "All test cases passed!" });
+    const passed = correctCount === problem.testCases.length;
+
+    if (passed) {
+      sendJson(res, 200, { output: "All test cases passed!", passed: true });
       return;
     }
 
     const failedCount = problem.testCases.length - correctCount;
     sendJson(res, 200, {
       output: `${failedCount} out of ${problem.testCases.length} test cases failed.\n${failedResult}`,
+      passed: false,
     });
   } catch (error) {
     const status = error?.status || 500;

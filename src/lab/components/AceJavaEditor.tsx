@@ -26,6 +26,12 @@ export default function AceJavaEditor({ value, onChange }: AceJavaEditorProps) {
     editor.setTheme("ace/theme/monokai");
     editor.session.setMode("ace/mode/java");
     editor.session.setUseWorker(false);
+    editor.setOptions({
+      fontSize: 14,
+      showPrintMargin: false,
+      wrap: true,
+      tabSize: 2,
+    });
     editor.setValue(value, -1);
     lastValueRef.current = value;
 
@@ -55,5 +61,5 @@ export default function AceJavaEditor({ value, onChange }: AceJavaEditorProps) {
     isSyncingRef.current = false;
   }, [value]);
 
-  return <div ref={containerRef} style={{ height: 300, width: "100%" }} />;
+  return <div ref={containerRef} className="lab-editor" />;
 }

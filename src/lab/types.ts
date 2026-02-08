@@ -1,4 +1,24 @@
-﻿export type Difficulty = string;
+export type Difficulty = "Easy" | "Medium" | "Hard";
+
+export type StatementBlock =
+  | {
+      type: "paragraph";
+      text: string;
+    }
+  | {
+      type: "list";
+      items: string[];
+    }
+  | {
+      type: "code";
+      text: string;
+    };
+
+export interface Example {
+  input: string;
+  output: string;
+  explanation?: string;
+}
 
 export interface TestCase {
   input: string;
@@ -7,10 +27,19 @@ export interface TestCase {
 
 export interface Problem {
   id: number;
+  slug: string;
   title: string;
-  description: string;
+  summary: string;
   difficulty: Difficulty;
+  tags: string[];
+  points?: number;
+  statement: StatementBlock[];
+  input: string[];
+  output: string[];
+  constraints: string[];
+  examples: Example[];
   hints: string[];
+  starterCode: string;
   solution: string;
   testCases: TestCase[];
 }
@@ -25,4 +54,5 @@ export interface LoginResponse {
 
 export interface RunResponse {
   output: string;
+  passed?: boolean;
 }

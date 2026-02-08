@@ -16,9 +16,18 @@ export default function Header() {
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/courses">Courses</Link>
-        <Link to="/lab/problems">Lab</Link>
         <Link to="/faq">FAQ</Link>
         <Link to="/contact">Contact</Link>
+        <div className="nav-dropdown">
+          <span className="nav-link" aria-haspopup="true">
+            Students
+          </span>
+          <div className="nav-dropdown-menu" role="menu">
+            <Link to="/lab/login" role="menuitem">
+              Labs
+            </Link>
+          </div>
+        </div>
       </nav>
       <Link to="/signup" className="nav-button">
         Get a Free Trial Class!

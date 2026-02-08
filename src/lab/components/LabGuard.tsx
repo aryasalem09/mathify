@@ -39,7 +39,9 @@ export default function LabGuard({ children }: LabGuardProps) {
   if (state === "loading") {
     return (
       <div className="lab-root">
-        <main>Loading...</main>
+        <main className="lab-container">
+          <div className="lab-card">Loading lab session...</div>
+        </main>
       </div>
     );
   }
@@ -47,7 +49,9 @@ export default function LabGuard({ children }: LabGuardProps) {
   if (state === "error") {
     return (
       <div className="lab-root">
-        <main>{error}</main>
+        <main className="lab-container">
+          <div className="lab-card">{error}</div>
+        </main>
       </div>
     );
   }

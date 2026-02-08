@@ -46,7 +46,7 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 30px; 
+    gap: 36px; 
 }
 
 nav a {
@@ -54,12 +54,15 @@ nav a {
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
-    padding: 5px 0;
+    padding: 6px 10px;
     position: relative;
+    border-radius: 12px;
+    transition: color 0.3s ease, background 0.3s ease;
 }
 
 nav a:hover {
     color: #00d4ff;
+    background: rgba(255, 255, 255, 0.08);
 }
 
 nav a::after {
@@ -74,6 +77,92 @@ nav a::after {
 
 nav a:hover::after {
     width: 100%;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+}
+
+.nav-dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 12px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 6px 10px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: color 0.3s ease, background 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+    margin: 0 auto;
+}
+
+.nav-dropdown:hover .nav-link {
+    color: #00d4ff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-dropdown:hover .nav-link::after {
+    width: 100%;
+}
+
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 160px;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    z-index: 1200;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu {
+    display: flex;
+}
+
+.nav-dropdown-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.nav-dropdown-menu a::after {
+    content: none;
+}
+
+.nav-dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #00d4ff;
 }
 
 /* Hero Section Styles */
