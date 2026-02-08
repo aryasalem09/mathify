@@ -240,7 +240,7 @@ export default function Home() {
               <div className="stat-label">Private classes available</div>
             </div>
             <div className="stat-card">
-              <div className="stat-num">6–8</div>
+              <div className="stat-num">12-15</div>
               <div className="stat-label">Students per group class</div>
             </div>
             <div className="stat-card">
