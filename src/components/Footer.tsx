@@ -5,32 +5,16 @@ export default function Footer() {
   const isTerms = pathname === "/terms";
   const isRefund = pathname === "/refund";
 
-  let links = (
-    <>
-      {" "}| <Link to="/terms">Terms of Service</Link> |{" "}
-      <Link to="/refund">Refund Policy</Link>
-    </>
-  );
-
-  if (isTerms) {
-    links = (
-      <>
-        {" "}| <Link to="/refund">Refund Policy</Link>
-      </>
-    );
-  }
-
-  if (isRefund) {
-    links = (
-      <>
-        {" "}| <Link to="/terms">Terms of Service</Link>
-      </>
-    );
-  }
-
   return (
     <footer className="footer">
-      <p>&copy; 2025 Mathlify. All Rights Reserved.{links}</p>
+      <p className="footer-copy">© 2026 Mathlify. All Rights Reserved.</p>
+
+      <p className="footer-links">
+        {!isTerms && <Link to="/terms">Terms of Service</Link>}
+        {!isRefund && <Link to="/refund">Refund Policy</Link>}
+        <span>Contact Us:</span>
+        <a href="mailto:mathlifytutoring@gmail.com">mathlifytutoring@gmail.com</a>
+      </p>
     </footer>
   );
 }
