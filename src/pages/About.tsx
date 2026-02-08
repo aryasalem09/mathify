@@ -10,8 +10,7 @@ export default function About() {
             We’re a team of high school instructors who make math (and AP CS)
             finally click. Our goal is simple: teach the{" "}
             <b>full course roadmap in 8 weeks</b> so students start the school
-            year <b>set up to earn an A</b>—with confidence, structure, and
-            practice.
+            year <b>set up to earn an A</b>.
           </p>
 
           <div className="about-badges">
@@ -20,7 +19,7 @@ export default function About() {
               <div className="badge-label">Private classes available</div>
             </div>
             <div className="badge">
-              <div className="badge-num">6–8</div>
+              <div className="badge-num">12-15</div>
               <div className="badge-label">Students per group</div>
             </div>
             <div className="badge">
@@ -67,7 +66,7 @@ export default function About() {
                 student gets real attention.
               </p>
               <ul className="checklist">
-                <li>👥 Small groups (6–8 max)</li>
+                <li>👥 Small groups (12-15 max)</li>
                 <li>🎯 1 on 1 available</li>
                 <li>🛣️ Full-course roadmap (8 weeks)</li>
                 <li>📝 Practice sets + answer keys</li>
@@ -98,11 +97,10 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Your Name</h3>
-                <p className="role">Lead Instructor — AP Calculus (AB/BC)</p>
+                <h3>Arya Salem</h3>
+                <p className="role">Lead Instructor</p>
                 <ul className="mini-list">
-                  <li>• AP Calc focus: AB & BC</li>
-                  <li>• Teaches: Calc, Precal, Alg II</li>
+                  <li>• Teaches: Calc AB/BC, CSA, Geometry, Alg I/II, Precal</li>
                   <li>• Style: clear steps + lots of practice</li>
                 </ul>
               </div>
@@ -115,12 +113,12 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Friend Name</h3>
-                <p className="role">Instructor — Geometry / Foundations</p>
+                <h3>Mohammed Alsouri</h3>
+                <p className="role">Lead Instructor</p>
                 <ul className="mini-list">
-                  <li>• Proofs + geometry intuition</li>
-                  <li>• Teaches: Geometry, Alg I/II</li>
-                  <li>• Style: visual explanations + strategy</li>
+                  <li>• Teaches: Calc AB/BC, CSA, Alg I/II, Precal</li>
+                  <li>• Genuinely has a passion for mathematics</li>
+                  <li>• Self studied the entirety of calculus</li>
                 </ul>
               </div>
             </article>
@@ -132,11 +130,11 @@ export default function About() {
                 alt="Instructor photo"
               />
               <div className="team-body">
-                <h3>Instructor Name</h3>
-                <p className="role">Instructor — AP Computer Science A</p>
+                <h3>Alice Yuan</h3>
+                <p className="role">Marketing Manager & Instructor</p>
                 <ul className="mini-list">
-                  <li>• Java OOP + Arrays/ArrayLists</li>
-                  <li>• FRQ practice + debugging drills</li>
+                  <li>• Teaches CSA, Geometry, Alg I/II</li>
+                  <li>• Does marketing or somethingn</li>
                   <li>• Style: learn-by-building + patterns</li>
                 </ul>
               </div>
@@ -145,7 +143,7 @@ export default function About() {
 
           <div className="about-cta">
             <Link to="/signup" className="cta-button">
-              Get a Free Trial Class
+              Interest Form
             </Link>
           </div>
         </div>

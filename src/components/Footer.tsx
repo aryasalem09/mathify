@@ -30,7 +30,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <p>&copy; 2025 Mathlify. All Rights Reserved.{links}</p>
+      <p>&copy; 2026 Mathlify. All Rights Reserved.{links} | Contact Us: <a href="mailto:[your-email]">mathlifytutoring@gmail.com</a></p>
     </footer>
   );
 }

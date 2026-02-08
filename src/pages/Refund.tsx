@@ -26,8 +26,8 @@
       <p>
         <strong>4. Refund Request Process</strong>
         <br />
-        To request a refund, email us at [your-email@example.com] with the
-        subject line \"Refund Request\" and include the student\u2019s name, course
+        To request a refund, email us at <b>mathlifytutoring@gmail.com</b> with the
+        subject line "Refund Request" and include the student's name, course
         enrolled, and reason for withdrawal.
       </p>
 

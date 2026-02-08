@@ -5,7 +5,7 @@ const termsLogo = "/Images/mathlify_logo_full_white.png";
 
 export default function Header() {
   const { pathname } = useLocation();
-  const logoSrc = pathname === "/terms" ? termsLogo : defaultLogo;
+  const logoSrc = defaultLogo;
 
   return (
     <header>
@@ -16,8 +16,6 @@ export default function Header() {
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/courses">Courses</Link>
-        <Link to="/faq">FAQ</Link>
-        <Link to="/contact">Contact</Link>
         <div className="nav-dropdown">
           <span className="nav-link" aria-haspopup="true">
             Students
@@ -30,7 +28,7 @@ export default function Header() {
         </div>
       </nav>
       <Link to="/signup" className="nav-button">
-        Get a Free Trial Class!
+        Fill Out The Interest Form!
       </Link>
     </header>
   );

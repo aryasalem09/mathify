@@ -226,11 +226,13 @@ export default function Home() {
         <div className="hero">
           <h1>Master Math This Summer!</h1>
           <p>
-            Interactive live sessions designed to help students excel in Algebra
-            I and II, Geometry, and Pre-calculus.
+            Interactive live classes designed to prepare students to excel in Math & CS over the school year.
           </p>
-          <Link to="/signup" className="cta-button">
-            Get Started
+          <Link to="/signup" className="cta-button" style={{ margin: "5px" }}>
+            I'm Interested
+          </Link>
+          <Link to="mailto:[your-email]" className="cta-button" style={{ margin: "5px" }}>
+            Contact Us
           </Link>
         </div>
         <section className="stats">
@@ -240,12 +242,12 @@ export default function Home() {
               <div className="stat-label">Private classes available</div>
             </div>
             <div className="stat-card">
-              <div className="stat-num">6–8</div>
+              <div className="stat-num">12-15</div>
               <div className="stat-label">Students per group class</div>
             </div>
             <div className="stat-card">
               <div className="stat-num">Live</div>
-              <div className="stat-label">Zoom sessions + practice</div>
+              <div className="stat-label">Via Google Meets</div>
             </div>
             <div className="stat-card">
               <div className="stat-num">Math + CS</div>
@@ -367,7 +369,7 @@ export default function Home() {
             </div>
 
             <div className="wcu-card">
-              <h3>👥 Small Groups (6–8 Students)</h3>
+              <h3>👥 Small Groups (12-15 Students)</h3>
               <p>
                 Students have the opportunity to socialize while also getting
                 feedback from their peers.
@@ -410,22 +412,38 @@ export default function Home() {
             <div className="border"></div>
             <h3 className="wcu">
               ⏰ What are you waiting for?
-              <p className="sm">Register today and try a free class.</p>
+              <p className="sm">Fill out our interest form today. We will contact you with follow up information!</p>
             </h3>
             <Link to="/signup" className="cta-button">
               Get Started!
             </Link>
           </div>
         </section>
-      </div>
+        <section className="how">
+          <div className="container">
+            <div className="section-head">
+              <h2>FAQ</h2>
+            </div>
 
-      <section id="reviews" className="section">
-        <h2>What Our Students Say</h2>
-        <p id="review" style={{ fontSize: "1.3rem" }}>
-          "{review.quote}" - <strong>{review.name}</strong>
-        </p>
-        <div className="stars">★★★★★</div>
-      </section>
+            <div className="how-grid">
+              <div className="how-card">
+                <h3>Who can join?</h3>
+                <p>Students aged 12-18 with an interest in math.</p>
+              </div>
+              <div className="how-card">
+                <h3>What tools are needed?</h3>
+                <p>
+                  A computer, internet connection, and enthusiasm to learn!
+                </p>
+              </div>
+              <div className="how-card">
+                <h3>How are classes conducted?</h3>
+                <p>Live via Google Meets with interactive math sessions.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
