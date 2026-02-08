@@ -235,129 +235,135 @@ export default function LabProblem() {
           {problem.statement.map((block, index) => renderStatement(block, index))}
         </section>
 
-        <section className="lab-card">
-          <h2>Input</h2>
-          <ul className="lab-list">
-            {problem.input.map((item, itemIndex) => (
-              <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-          <h2>Output</h2>
-          <ul className="lab-list">
-            {problem.output.map((item, itemIndex) => (
-              <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-          <h2>Constraints</h2>
-          <ul className="lab-list">
-            {problem.constraints.map((item, itemIndex) => (
-              <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
-            ))}
-          </ul>
-        </section>
+        <div className="lab-problem-columns">
+          <div className="lab-problem-left">
+            <section className="lab-card">
+              <h2>Editor</h2>
+              <div className="lab-editor-wrapper">
+                <AceJavaEditor value={code} onChange={setCode} />
+              </div>
+              <div className="lab-editor-actions">
+                <button className="lab-button" type="button" onClick={handleRunClick}>
+                  {isRunning ? "Running..." : "Run Code"}
+                </button>
+                <span className="lab-muted">{compilationTime}</span>
+              </div>
+            </section>
 
-        <section className="lab-card">
-          <h2>Examples</h2>
-          <div className="lab-example-grid">
-            {problem.examples.map((example, index) => (
-              <div key={`${example.input}-${index}`} className="lab-example">
-                <div>
-                  <div className="lab-example-label">Example Input</div>
-                  <pre className="lab-pre">
-                    {formatExampleValue(example.input)}
-                  </pre>
-                </div>
-                <div>
-                  <div className="lab-example-label">Expected Output</div>
-                  <pre className="lab-pre">
-                    {formatExampleValue(example.output)}
-                  </pre>
-                </div>
-                {example.explanation ? (
-                  <p className="lab-example-note">
-                    {renderInline(example.explanation)}
-                  </p>
+            <section className="lab-card">
+              <h2>Output Console</h2>
+              <div className="lab-console">
+                <pre className="lab-console-pre">
+                  {output || "Run your code to see output here."}
+                </pre>
+              </div>
+            </section>
+
+            <section className="lab-card">
+              <div className="lab-card-header">
+                <h2>Solution</h2>
+                <span className="lab-muted">
+                  {canRevealSolution
+                    ? "Click to reveal the reference solution."
+                    : "Reveal all hints to unlock."}
+                </span>
+              </div>
+              {solutionVisible ? (
+                <CodeBlock code={problem.solution} label="Reference Solution" />
+              ) : (
+                <button
+                  className="lab-button lab-button--ghost"
+                  type="button"
+                  onClick={handleSolutionClick}
+                  disabled={!canRevealSolution}
+                >
+                  Reveal solution
+                </button>
+              )}
+            </section>
+          </div>
+
+          <div className="lab-problem-right">
+            <section className="lab-card">
+              <h2>Input</h2>
+              <ul className="lab-list">
+                {problem.input.map((item, itemIndex) => (
+                  <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
+                ))}
+              </ul>
+              <h2>Output</h2>
+              <ul className="lab-list">
+                {problem.output.map((item, itemIndex) => (
+                  <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
+                ))}
+              </ul>
+              <h2>Constraints</h2>
+              <ul className="lab-list">
+                {problem.constraints.map((item, itemIndex) => (
+                  <li key={`${itemIndex}-${item}`}>{renderInline(item)}</li>
+                ))}
+              </ul>
+            </section>
+
+            <section className="lab-card">
+              <h2>Examples</h2>
+              <div className="lab-example-grid">
+                {problem.examples.map((example, index) => (
+                  <div key={`${example.input}-${index}`} className="lab-example">
+                    <div>
+                      <div className="lab-example-label">Example Input</div>
+                      <pre className="lab-pre">
+                        {formatExampleValue(example.input)}
+                      </pre>
+                    </div>
+                    <div>
+                      <div className="lab-example-label">Expected Output</div>
+                      <pre className="lab-pre">
+                        {formatExampleValue(example.output)}
+                      </pre>
+                    </div>
+                    {example.explanation ? (
+                      <p className="lab-example-note">
+                        {renderInline(example.explanation)}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section className="lab-card">
+              <div className="lab-card-header">
+                <h2>Hints</h2>
+                {hasHints ? (
+                  <button className="lab-button lab-button--ghost" type="button" onClick={handleHintToggle}>
+                    {isHintsOpen ? "Hide hints" : "Show hint"}
+                  </button>
                 ) : null}
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="lab-card">
-          <div className="lab-card-header">
-            <h2>Hints</h2>
-            {hasHints ? (
-              <button className="lab-button lab-button--ghost" type="button" onClick={handleHintToggle}>
-                {isHintsOpen ? "Hide hints" : "Show hint"}
-              </button>
-            ) : null}
-          </div>
-          {hasHints ? (
-            <div className="lab-hint-panel">
-              {isHintsOpen && revealedHints.length > 0 ? (
-                <ul className="lab-list">
-                  {revealedHints.map((hint, hintIndex) => (
-                    <li key={`${hintIndex}-${hint}`}>{hint}</li>
-                  ))}
-                </ul>
+              {hasHints ? (
+                <div className="lab-hint-panel">
+                  {isHintsOpen && revealedHints.length > 0 ? (
+                    <ul className="lab-list">
+                      {revealedHints.map((hint, hintIndex) => (
+                        <li key={`${hintIndex}-${hint}`}>{hint}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="lab-muted">Hints will appear here.</p>
+                  )}
+                  {hintsUsed < problem.hints.length ? (
+                    <button className="lab-button" type="button" onClick={handleNextHint}>
+                      Reveal next hint
+                    </button>
+                  ) : null}
+                </div>
               ) : (
-                <p className="lab-muted">Hints will appear here.</p>
+                <p className="lab-muted">No hints for this problem.</p>
               )}
-              {hintsUsed < problem.hints.length ? (
-                <button className="lab-button" type="button" onClick={handleNextHint}>
-                  Reveal next hint
-                </button>
-              ) : null}
-            </div>
-          ) : (
-            <p className="lab-muted">No hints for this problem.</p>
-          )}
-        </section>
-
-        <section className="lab-card">
-          <h2>Editor</h2>
-          <div className="lab-editor-wrapper">
-            <AceJavaEditor value={code} onChange={setCode} />
+            </section>
           </div>
-          <div className="lab-editor-actions">
-            <button className="lab-button" type="button" onClick={handleRunClick}>
-              {isRunning ? "Running..." : "Run Code"}
-            </button>
-            <span className="lab-muted">{compilationTime}</span>
-          </div>
-        </section>
-
-        <section className="lab-card">
-          <h2>Output Console</h2>
-          <div className="lab-console">
-            <pre className="lab-console-pre">
-              {output || "Run your code to see output here."}
-            </pre>
-          </div>
-        </section>
-
-        <section className="lab-card">
-          <div className="lab-card-header">
-            <h2>Solution</h2>
-            <span className="lab-muted">
-              {canRevealSolution
-                ? "Click to reveal the reference solution."
-                : "Reveal all hints to unlock."}
-            </span>
-          </div>
-          {solutionVisible ? (
-            <CodeBlock code={problem.solution} label="Reference Solution" />
-          ) : (
-            <button
-              className="lab-button lab-button--ghost"
-              type="button"
-              onClick={handleSolutionClick}
-              disabled={!canRevealSolution}
-            >
-              Reveal solution
-            </button>
-          )}
-        </section>
+        </div>
       </div>
     </LabLayout>
   );

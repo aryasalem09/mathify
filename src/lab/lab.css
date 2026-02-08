@@ -620,6 +620,19 @@
   gap: 20px;
 }
 
+.lab-problem-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.lab-problem-left,
+.lab-problem-right {
+  display: grid;
+  gap: 20px;
+}
+
 @media (max-width: 900px) {
   .lab-header-inner {
     align-items: flex-start;
@@ -636,5 +649,9 @@
 
   .lab-toolbar {
     align-items: flex-start;
+  }
+
+  .lab-problem-columns {
+    grid-template-columns: 1fr;
   }
 }
