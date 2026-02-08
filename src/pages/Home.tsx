@@ -205,7 +205,7 @@ const reviews = [
 ];
 
 export default function Home() {
-  const [reviewIndex, setReviewIndex] = useState(() =>
+  const [/* reviewIndex */, setReviewIndex] = useState(() =>
     Math.floor(Math.random() * reviews.length)
   );
 
@@ -218,7 +218,7 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const review = reviews[reviewIndex];
+  // const review = reviews[reviewIndex];
 
   return (
     <>
