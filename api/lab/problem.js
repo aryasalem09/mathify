@@ -1,4 +1,3 @@
-import { requireUser } from "./_auth.js";
 import { loadProblems } from "./_data.js";
 
 function sendJson(res, status, payload) {
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    requireUser(req);
     const query = req.url?.split("?")[1] ?? "";
     const searchParams = new URLSearchParams(query);
     const idParam = searchParams.get("id");

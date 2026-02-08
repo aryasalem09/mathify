@@ -1,22 +1,29 @@
-import { NavLink, Link } from "react-router-dom";
-import type { AuthState } from "../hooks/useLabSession";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthProvider";
 import "../lab.css";
 
-type LabSubNavProps = {
-  authState: AuthState;
-  onLogout: () => void;
-};
+export default function LabSubNav() {
+  const navigate = useNavigate();
+  const { user, loading, signOut } = useAuth();
+  const isAuthed = Boolean(user);
 
-export default function LabSubNav({ authState, onLogout }: LabSubNavProps) {
   const navClass = ({ isActive }: { isActive: boolean }) =>
     `lab-subnav-link${isActive ? " is-active" : ""}`;
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } finally {
+      navigate("/login");
+    }
+  };
 
   return (
     <nav className="lab-subnav">
       <Link className="lab-subnav-link" to="/">
         Back to Mathify
       </Link>
-      {authState === "authed" ? (
+      {isAuthed ? (
         <>
           <NavLink className={navClass} to="/lab/dashboard">
             Dashboard
@@ -24,17 +31,16 @@ export default function LabSubNav({ authState, onLogout }: LabSubNavProps) {
           <NavLink className={navClass} to="/lab/problems">
             Problems
           </NavLink>
-          <button className="lab-subnav-link" type="button" onClick={onLogout}>
+          <button className="lab-subnav-link" type="button" onClick={handleLogout}>
             Logout
           </button>
         </>
       ) : null}
-      {authState === "guest" ? (
-        <NavLink className={navClass} to="/lab/login">
+      {!isAuthed && !loading ? (
+        <NavLink className={navClass} to="/login">
           Login
         </NavLink>
       ) : null}
     </nav>
   );
 }
-

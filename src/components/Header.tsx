@@ -1,11 +1,25 @@
-﻿import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthProvider";
 
 const defaultLogo = "/Images/mathlify_logo.png";
 const termsLogo = "/Images/mathlify_logo_full_white.png";
 
 export default function Header() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const logoSrc = pathname === "/terms" ? termsLogo : defaultLogo;
+  const labsPath = user ? "/lab/dashboard" : "/login";
+  const ctaLabel = user ? "Go to Labs" : "Get a Free Trial Class!";
+  const ctaPath = user ? "/lab/dashboard" : "/signup";
+
+  const handleLogout = async () => {
+    try {
+      await signOut();
+    } finally {
+      navigate("/");
+    }
+  };
 
   return (
     <header>
@@ -23,15 +37,34 @@ export default function Header() {
             Students
           </span>
           <div className="nav-dropdown-menu" role="menu">
-            <Link to="/lab/login" role="menuitem">
+            <Link to={labsPath} role="menuitem">
               Labs
             </Link>
           </div>
         </div>
       </nav>
-      <Link to="/signup" className="nav-button">
-        Get a Free Trial Class!
-      </Link>
+      <div className="header-actions">
+        {user?.email ? <span className="nav-user">{user.email}</span> : null}
+        {user ? (
+          <>
+            <button className="nav-link-button" type="button" onClick={handleLogout}>
+              Logout
+            </button>
+            <Link to={ctaPath} className="nav-button">
+              {ctaLabel}
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to={ctaPath} className="nav-button">
+              {ctaLabel}
+            </Link>
+            <Link to="/login" className="nav-link-button nav-auth-button">
+              Login
+            </Link>
+          </>
+        )}
+      </div>
     </header>
   );
 }

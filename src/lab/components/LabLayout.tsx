@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../api";
 import LabSubNav from "./LabSubNav";
-import { useLabSession } from "../hooks/useLabSession";
+import { useAuth } from "../../auth/AuthProvider";
 import "../lab.css";
 
 type LabLayoutProps = {
@@ -18,27 +16,13 @@ export default function LabLayout({
   meta,
   children,
 }: LabLayoutProps) {
-  const navigate = useNavigate();
-  const { authState, user, error, setGuest } = useLabSession();
-  const navState = authState === "error" ? "guest" : authState;
+  const { user, loading } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } finally {
-      setGuest();
-      navigate("/lab/login");
-    }
-  };
-
-  const statusLabel =
-    authState === "loading"
-      ? "Checking session..."
-      : authState === "authed" && user
-      ? `Signed in as ${user.username}`
-      : authState === "error"
-      ? error ?? "Session unavailable"
-      : "Not signed in";
+  const statusLabel = loading
+    ? "Checking session..."
+    : user?.email
+    ? `Signed in as ${user.email}`
+    : "Not signed in";
 
   return (
     <div className="lab-root">
@@ -51,7 +35,7 @@ export default function LabLayout({
             {meta ? <div className="lab-meta">{meta}</div> : null}
           </div>
           <div className="lab-header-actions">
-            <LabSubNav authState={navState} onLogout={handleLogout} />
+            <LabSubNav />
             <div className="lab-status">{statusLabel}</div>
           </div>
         </div>

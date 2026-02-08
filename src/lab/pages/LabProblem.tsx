@@ -103,7 +103,7 @@ export default function LabProblem() {
       .catch((err) => {
         if (!isMounted) return;
         if (err instanceof ApiError && err.status === 401) {
-          navigate("/lab/login", { replace: true });
+          navigate("/login", { replace: true });
           return;
         }
         setError(err instanceof Error ? err.message : "Error loading problem.");
@@ -170,7 +170,7 @@ export default function LabProblem() {
       }
     } catch (err) {
       if (err instanceof ApiError && err.status === 401) {
-        navigate("/lab/login", { replace: true });
+        navigate("/login", { replace: true });
         return;
       }
       const message = err instanceof Error ? err.message : "Error running code.";

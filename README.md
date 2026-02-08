@@ -2,6 +2,27 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## Supabase Auth Setup
+
+Required environment variables:
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+Local development:
+1. Create `.env.local` in the project root.
+2. Add the variables above.
+3. Restart the dev server after changes.
+
+Vercel:
+1. Add the same variables in the Vercel project settings.
+2. Redeploy after updating environment variables.
+
+Supabase settings:
+- Auth > Settings > Email: confirm email should be off (already configured).
+
+Troubleshooting:
+- If you see `Supabase env vars missing` in the console, verify the env values and restart `npm run dev`.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh

@@ -33,7 +33,7 @@ export default function LabProblemsList() {
       .catch((err) => {
         if (!isMounted) return;
         if (err instanceof ApiError && err.status === 401) {
-          navigate("/lab/login", { replace: true });
+          navigate("/login", { replace: true });
           return;
         }
         setError(err instanceof Error ? err.message : "Failed to load problems.");
@@ -123,7 +123,12 @@ export default function LabProblemsList() {
             const isCompleted = completedIds.has(problem.id);
 
             return (
-              <article key={problem.id} className="lab-card lab-problem-card">
+              <article
+                key={problem.id}
+                className={`lab-card lab-problem-card${
+                  isCompleted ? " is-completed" : ""
+                }`}
+              >
                 <div className="lab-problem-card-header">
                   <div>
                     <h3>{problem.title}</h3>
@@ -133,7 +138,7 @@ export default function LabProblemsList() {
                     <DifficultyBadge difficulty={problem.difficulty} />
                     <span
                       className={`lab-status-pill${
-                        isCompleted ? "" : " is-muted"
+                        isCompleted ? " is-completed" : " is-muted"
                       }`}
                     >
                       {isCompleted ? "Completed" : "Not started"}

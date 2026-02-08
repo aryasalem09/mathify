@@ -1,4 +1,3 @@
-import { requireUser } from "./_auth.js";
 import { loadProblems } from "./_data.js";
 
 function sendJson(res, status, payload) {
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    requireUser(req);
     const problems = await loadProblems();
     sendJson(res, 200, problems);
   } catch (error) {

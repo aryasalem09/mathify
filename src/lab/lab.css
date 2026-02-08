@@ -17,9 +17,9 @@
 }
 
 .lab-header-inner {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -110,9 +110,9 @@
 }
 
 .lab-container {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 32px 20px 70px;
+  padding: 32px 24px 80px;
 }
 
 .lab-grid {
@@ -217,6 +217,11 @@
   color: #475569;
 }
 
+.lab-status-pill.is-completed {
+  background: #16a34a;
+  color: #ffffff;
+}
+
 .lab-toolbar {
   display: flex;
   align-items: flex-end;
@@ -273,6 +278,11 @@
 .lab-problem-card {
   display: grid;
   gap: 12px;
+}
+
+.lab-problem-card.is-completed {
+  border-color: rgba(34, 197, 94, 0.4);
+  box-shadow: 0 12px 26px rgba(34, 197, 94, 0.12);
 }
 
 .lab-problem-card-header {
@@ -622,8 +632,8 @@
 
 .lab-problem-columns {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 24px;
   align-items: start;
 }
 
@@ -631,6 +641,17 @@
 .lab-problem-right {
   display: grid;
   gap: 20px;
+}
+
+@media (max-width: 1200px) {
+  .lab-header-inner,
+  .lab-container {
+    max-width: 1200px;
+  }
+
+  .lab-problem-columns {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 900px) {

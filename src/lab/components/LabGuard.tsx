@@ -24,7 +24,7 @@ export default function LabGuard({ children }: LabGuardProps) {
       .catch((err) => {
         if (!isMounted) return;
         if (err instanceof ApiError && err.status === 401) {
-          navigate("/lab/login", { replace: true });
+          navigate("/login", { replace: true });
           return;
         }
         setError(err instanceof Error ? err.message : "Failed to verify login.");
