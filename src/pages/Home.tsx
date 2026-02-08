@@ -229,7 +229,7 @@ export default function Home() {
             Interactive live classes designed to prepare students to excel in Math & CS over the school year.
           </p>
           <div className="hero-cta">
-            <Link to="/signup" className="cta-button">
+            <Link to="/enroll" className="cta-button">
             I'm Interested
           </Link>
           <Link to="mailto:[your-email]" className="cta-button">
@@ -418,7 +418,7 @@ export default function Home() {
               ⏰ What are you waiting for?
               <p className="sm">Fill out our interest form today. We will contact you with follow up information!</p>
             </h3>
-            <Link to="/signup" className="cta-button">
+            <Link to="/enroll" className="cta-button">
               Get Started!
             </Link>
           </div>

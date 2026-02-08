@@ -14,8 +14,8 @@ export default function Header() {
 
   const logoSrc = pathname === "/terms" ? termsLogo : defaultLogo;
 
-  const ctaLabel = user ? "Go to Labs" : "Get a Free Trial Class!";
-  const ctaPath = user ? "/lab/dashboard" : "/signup";
+  const ctaLabel = user ? "Go to Labs" : "Fill Out The Interest Form!";
+  const ctaPath = user ? "/lab/dashboard" : "/enroll";
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -52,13 +52,13 @@ export default function Header() {
 
         {user ? (
           <>
-            <button
-              className="nav-link-button"
+            <a
+              className="nav-button nav-auth-button"
               type="button"
               onClick={handleLogout}
             >
               Logout
-            </button>
+            </a>
 
             <Link to={ctaPath} className="nav-button">
               {ctaLabel}
@@ -70,7 +70,7 @@ export default function Header() {
               {ctaLabel}
             </Link>
 
-            <Link to="/login" className="nav-link-button nav-auth-button">
+            <Link to="/login" className="nav-button nav-auth-button">
               Login
             </Link>
           </>
@@ -111,13 +111,13 @@ export default function Header() {
 
           {user ? (
             <>
-              <button
-                className="nav-link-button"
+              <a
+                className="nav-button nav-auth-button"
                 type="button"
                 onClick={handleLogout}
               >
                 Logout
-              </button>
+              </a>
 
               <Link
                 to={ctaPath}
@@ -139,7 +139,7 @@ export default function Header() {
 
               <Link
                 to="/login"
-                className="nav-link-button nav-auth-button"
+                className="nav-button nav-auth-button"
                 onClick={closeMobileMenu}
               >
                 Login
