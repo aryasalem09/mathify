@@ -1,4 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 
 const defaultLogo = "/Images/mathlify_logo.png";
@@ -8,48 +9,57 @@ export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+
   const logoSrc = pathname === "/terms" ? termsLogo : defaultLogo;
-  const labsPath = user ? "/lab/dashboard" : "/login";
+
   const ctaLabel = user ? "Go to Labs" : "Get a Free Trial Class!";
   const ctaPath = user ? "/lab/dashboard" : "/signup";
+
+  const closeMobileMenu = () => setMobileMenuOpen(false);
+
+  // Close menus on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const handleLogout = async () => {
     try {
       await signOut();
     } finally {
+      closeMobileMenu();
       navigate("/");
     }
   };
 
   return (
-    <header>
-      <Link to="/" className="logo">
+    <header className="site-header">
+      <Link to="/" className="logo" aria-label="Mathlify home">
         <img src={logoSrc} alt="Mathlify Logo" />
       </Link>
-      <nav>
+
+      {/* Desktop nav */}
+      <nav className="nav-desktop" aria-label="Primary">
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
         <Link to="/courses">Courses</Link>
-        <Link to="/faq">FAQ</Link>
-        <Link to="/contact">Contact</Link>
-        <div className="nav-dropdown">
-          <span className="nav-link" aria-haspopup="true">
-            Students
-          </span>
-          <div className="nav-dropdown-menu" role="menu">
-            <Link to={labsPath} role="menuitem">
-              Labs
-            </Link>
-          </div>
-        </div>
       </nav>
-      <div className="header-actions">
+
+      {/* Desktop actions */}
+      <div className="header-actions nav-desktop">
         {user?.email ? <span className="nav-user">{user.email}</span> : null}
+
         {user ? (
           <>
-            <button className="nav-link-button" type="button" onClick={handleLogout}>
+            <button
+              className="nav-link-button"
+              type="button"
+              onClick={handleLogout}
+            >
               Logout
             </button>
+
             <Link to={ctaPath} className="nav-button">
               {ctaLabel}
             </Link>
@@ -59,11 +69,84 @@ export default function Header() {
             <Link to={ctaPath} className="nav-button">
               {ctaLabel}
             </Link>
+
             <Link to="/login" className="nav-link-button nav-auth-button">
               Login
             </Link>
           </>
         )}
+      </div>
+
+      {/* Mobile hamburger */}
+      <button
+        type="button"
+        className="nav-toggle hamburger"
+        onClick={() => setMobileMenuOpen((v) => !v)}
+        aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={mobileMenuOpen}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
+      {/* Mobile menu */}
+      <div
+        className={`nav-mobile ${mobileMenuOpen ? "open" : ""}`}
+        role="dialog"
+        aria-label="Mobile menu"
+      >
+        <Link to="/" onClick={closeMobileMenu}>
+          Home
+        </Link>
+        <Link to="/about" onClick={closeMobileMenu}>
+          About
+        </Link>
+        <Link to="/courses" onClick={closeMobileMenu}>
+          Courses
+        </Link>
+
+        <div className="mobile-actions">
+          {user?.email ? <div className="nav-user">{user.email}</div> : null}
+
+          {user ? (
+            <>
+              <button
+                className="nav-link-button"
+                type="button"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+
+              <Link
+                to={ctaPath}
+                className="nav-button mobile-cta"
+                onClick={closeMobileMenu}
+              >
+                {ctaLabel}
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to={ctaPath}
+                className="nav-button mobile-cta"
+                onClick={closeMobileMenu}
+              >
+                {ctaLabel}
+              </Link>
+
+              <Link
+                to="/login"
+                className="nav-link-button nav-auth-button"
+                onClick={closeMobileMenu}
+              >
+                Login
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );
