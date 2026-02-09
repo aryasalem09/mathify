@@ -59,7 +59,8 @@ function LabProblemAlias() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const showSiteChrome = !pathname.startsWith("/lab");
+  const showSiteChrome =
+    !pathname.startsWith("/lab") && !pathname.startsWith("/admin");
 
   useEffect(() => {
     if (pathname.startsWith("/lab/problem/")) {

@@ -111,7 +111,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, []);
 
     const refreshProfile = useCallback(async () => {
-        if (!user) {
+        let resolvedUser = user;
+        if (!resolvedUser) {
+            const { data } = await supabase.auth.getSession();
+            resolvedUser = data.session?.user ?? null;
+        }
+
+        if (!resolvedUser) {
             setProfile(null);
             setProfileLoading(false);
             return null;
@@ -121,7 +127,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const { data, error } = await supabase
             .from("profiles")
             .select("id, role, email")
-            .eq("id", user.id)
+            .eq("id", resolvedUser.id)
             .maybeSingle();
 
         if (error) {
@@ -132,9 +138,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         if (!data) {
             const fallbackProfile = {
-                id: user.id,
+                id: resolvedUser.id,
                 role: "pending" as UserRole,
-                email: user.email ?? null,
+                email: resolvedUser.email ?? null,
             };
             setProfile(fallbackProfile);
             setProfileLoading(false);

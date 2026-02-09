@@ -17,6 +17,20 @@ export default function Login() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const from = (location.state as LocationState | null)?.from?.pathname ?? "";
+  const safeFrom =
+    from && from !== "/login" && from !== "/signup" && from !== "/pending"
+      ? from
+      : "";
+
+  const resolveRedirect = (role: string | null) => {
+    if (role === "admin") {
+      return safeFrom.startsWith("/admin") ? safeFrom : "/admin";
+    }
+    if (role === "student") {
+      return safeFrom.startsWith("/lab") ? safeFrom : "/lab/dashboard";
+    }
+    return "/pending";
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,28 +40,8 @@ export default function Login() {
     try {
       await signIn(email, password);
 
-      const p = await refreshProfile();
-      const role = p?.role ?? "pending";
-
-
-      if (from && from !== "/login" && from !== "/signup" && from !== "/pending") {
-        // never send admins into lab routes
-        if (role === "admin" && from.startsWith("/lab")) {
-          navigate("/admin", { replace: true });
-          return;
-        }
-        navigate(from, { replace: true });
-        return;
-      }
-
-      // default landing pages by role
-      if (role === "admin") {
-        navigate("/admin", { replace: true });
-      } else if (role === "student") {
-        navigate("/lab/dashboard", { replace: true });
-      } else {
-        navigate("/pending", { replace: true });
-      }
+      const profile = await refreshProfile();
+      navigate(resolveRedirect(profile?.role ?? null), { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed.");
     } finally {

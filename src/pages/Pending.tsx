@@ -3,7 +3,15 @@ import { useAuth } from "../auth/AuthProvider";
 
 export default function Pending() {
   const navigate = useNavigate();
-  const { session, user, loading, profileLoading, isApproved, signOut } = useAuth();
+  const {
+    session,
+    user,
+    loading,
+    profileLoading,
+    isApproved,
+    role,
+    signOut,
+  } = useAuth();
 
   if (loading || profileLoading) {
     return (
@@ -21,7 +29,7 @@ export default function Pending() {
   }
 
   if (isApproved) {
-    return <Navigate to="/lab/dashboard" replace />;
+    return <Navigate to={role === "admin" ? "/admin" : "/lab/dashboard"} replace />;
   }
 
   const handleLogout = async () => {
