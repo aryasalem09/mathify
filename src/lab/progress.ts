@@ -1,50 +1,70 @@
-const STORAGE_KEY = "mathify.lab.completed";
+import { supabase } from "../lib/supabase";
+
+const LAB_ID = "mathify-labs";
 const PROGRESS_EVENT = "lab-progress";
 
-type ProgressState = {
-  completed: number[];
+type LabProgressRow = {
+  problem_id: string;
+  status: string | null;
+  score: number | null;
 };
 
-function readState(): ProgressState {
-  if (typeof window === "undefined") {
-    return { completed: [] };
+export async function getCompletedProblems(userId: string) {
+  const { data, error } = await supabase
+    .from("user_lab_progress")
+    .select("problem_id, status")
+    .eq("user_id", userId)
+    .eq("lab_id", LAB_ID);
+
+  if (error) {
+    throw error;
   }
 
-  const raw = window.localStorage.getItem(STORAGE_KEY);
-  if (!raw) return { completed: [] };
+  const rows = Array.isArray(data) ? data : [];
+  return rows
+    .filter((row) => row.status === "completed")
+    .map((row) => Number(row.problem_id))
+    .filter((value) => Number.isFinite(value));
+}
 
-  try {
-    const data = JSON.parse(raw) as ProgressState;
-    const completed = Array.isArray(data?.completed)
-      ? data.completed.filter((value) => Number.isFinite(value))
-      : [];
-    return { completed: Array.from(new Set(completed)) };
-  } catch {
-    return { completed: [] };
+export async function fetchLabProgress(userId: string) {
+  const { data, error } = await supabase
+    .from("user_lab_progress")
+    .select("problem_id, status, score")
+    .eq("user_id", userId)
+    .eq("lab_id", LAB_ID);
+
+  if (error) {
+    throw error;
   }
+
+  return (data ?? []) as LabProgressRow[];
 }
 
-function writeState(state: ProgressState) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+export async function markProblemCompleted(params: {
+  userId: string;
+  problemId: number;
+  score?: number | null;
+}) {
+  const { userId, problemId, score } = params;
+  const { error } = await supabase.from("user_lab_progress").upsert(
+    {
+      user_id: userId,
+      lab_id: LAB_ID,
+      problem_id: String(problemId),
+      status: "completed",
+      score: typeof score === "number" ? score : null,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "user_id,lab_id,problem_id" }
+  );
 
-export function getCompletedProblems() {
-  return readState().completed;
-}
+  if (error) {
+    throw error;
+  }
 
-export function isProblemCompleted(id: number) {
-  return readState().completed.includes(id);
-}
-
-export function markProblemCompleted(id: number) {
-  const state = readState();
-  if (!state.completed.includes(id)) {
-    state.completed.push(id);
-    writeState(state);
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new Event(PROGRESS_EVENT));
-    }
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(PROGRESS_EVENT));
   }
 }
 
@@ -54,10 +74,8 @@ export function subscribeProgress(callback: () => void) {
   }
 
   window.addEventListener(PROGRESS_EVENT, callback);
-  window.addEventListener("storage", callback);
 
   return () => {
     window.removeEventListener(PROGRESS_EVENT, callback);
-    window.removeEventListener("storage", callback);
   };
 }

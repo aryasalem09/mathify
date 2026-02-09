@@ -1,94 +1,40 @@
-# React + TypeScript + Vite
+﻿# Mathify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mathify is a React + Vite app with Supabase auth, student labs, and an admin dashboard.
 
-## Supabase Auth Setup
+## One-time Supabase Setup
+1. Create a Supabase project.
+2. In the Supabase SQL editor, run these migrations in order:
+   - `supabase/migrations/20260208_0001_lab_progress.sql`
+   - `supabase/migrations/20260208_0002_profiles_security_patch.sql`
+   - `supabase/migrations/20260208_0003_admin_dashboard_rls.sql`
+3. Local development:
+   - Run `npm install`.
+   - Copy `.env.example` to `.env.local`.
+   - Fill in:
+     - `VITE_SUPABASE_URL`
+     - `VITE_SUPABASE_ANON_KEY`
+     - `SUPABASE_URL`
+     - `SUPABASE_ANON_KEY`
+   - Start the app with `npm run dev`.
+4. For Vercel, set the same environment variables in the project settings and redeploy.
 
-Required environment variables:
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+## How to add an admin
+1. Have the user sign up so a profile row is created.
+2. In Supabase Table Editor, open `public.profiles`.
+3. Find the user by email and set `role` to `admin`.
+4. The user can now visit `/admin`.
 
-Local development:
-1. Create `.env.local` in the project root.
-2. Add the variables above.
-3. Restart the dev server after changes.
+## Admin daily workflow
+1. Approve new students on the Students page (pending -> student).
+2. Create assignments and copy the share links.
+3. Students submit from the lab problem screen.
+4. Review submissions and save feedback.
+5. Check Grades for a final summary.
 
-Vercel:
-1. Add the same variables in the Vercel project settings.
-2. Redeploy after updating environment variables.
-
-Supabase settings:
-- Auth > Settings > Email: confirm email should be off (already configured).
-
-Troubleshooting:
-- If you see `Supabase env vars missing` in the console, verify the env values and restart `npm run dev`.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Troubleshooting
+- "Supabase env vars missing" or auth errors: check `.env.local` and restart `npm run dev`.
+- Permission errors or empty data: confirm your role in `public.profiles` and re-run migrations.
+- Schema changes not visible: run `notify pgrst, 'reload schema';` in the SQL editor.
+- Students cannot see assignments: ensure the assignment is set to "all" or includes their user ID.
+- If a student can change role, re-apply `20260208_0002_profiles_security_patch.sql`.

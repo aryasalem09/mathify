@@ -44,14 +44,6 @@ export interface Problem {
   testCases: TestCase[];
 }
 
-export interface LoginResponse {
-  ok: boolean;
-  user?: {
-    username: string;
-  };
-  error?: string;
-}
-
 export interface RunResponse {
   output: string;
   passed?: boolean;

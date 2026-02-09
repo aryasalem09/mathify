@@ -1,4 +1,5 @@
 import { loadProblems } from "./_data.js";
+import { requireApprovedUser } from "./_auth.js";
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
@@ -14,6 +15,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    await requireApprovedUser(req);
     const query = req.url?.split("?")[1] ?? "";
     const searchParams = new URLSearchParams(query);
     const idParam = searchParams.get("id");

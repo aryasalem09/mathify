@@ -1,4 +1,4 @@
-import { parseJsonBody } from "./_auth.js";
+import { parseJsonBody, requireApprovedUser } from "./_auth.js";
 import { loadProblems } from "./_data.js";
 
 function sendJson(res, status, payload) {
@@ -15,6 +15,7 @@ export default async function handler(req, res) {
   }
 
   try {
+    await requireApprovedUser(req);
     const body = parseJsonBody(req);
     const code = typeof body.code === "string" ? body.code : "";
     const problemId = Number(body.problemId);
@@ -83,4 +84,3 @@ export default async function handler(req, res) {
     sendJson(res, status, { error: errorMessage });
   }
 }
-

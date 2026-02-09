@@ -4,8 +4,9 @@ import "../lab.css";
 
 export default function LabSubNav() {
   const navigate = useNavigate();
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, signOut, isApproved } = useAuth();
   const isAuthed = Boolean(user);
+  const canAccessLabs = isAuthed && isApproved;
 
   const navClass = ({ isActive }: { isActive: boolean }) =>
     `lab-subnav-link${isActive ? " is-active" : ""}`;
@@ -23,7 +24,7 @@ export default function LabSubNav() {
       <Link className="lab-subnav-link" to="/">
         Back to Mathify
       </Link>
-      {isAuthed ? (
+      {canAccessLabs ? (
         <>
           <NavLink className={navClass} to="/lab/dashboard">
             Dashboard
@@ -31,10 +32,18 @@ export default function LabSubNav() {
           <NavLink className={navClass} to="/lab/problems">
             Problems
           </NavLink>
+          <NavLink className={navClass} to="/lab/assignments">
+            Assignments
+          </NavLink>
           <button className="lab-subnav-link" type="button" onClick={handleLogout}>
             Logout
           </button>
         </>
+      ) : null}
+      {isAuthed && !isApproved ? (
+        <button className="lab-subnav-link" type="button" onClick={handleLogout}>
+          Logout
+        </button>
       ) : null}
       {!isAuthed && !loading ? (
         <NavLink className={navClass} to="/login">

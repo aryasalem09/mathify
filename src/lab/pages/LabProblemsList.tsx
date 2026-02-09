@@ -4,7 +4,8 @@ import { ApiError, getProblems } from "../api";
 import type { Problem } from "../types";
 import LabLayout from "../components/LabLayout";
 import DifficultyBadge from "../components/DifficultyBadge";
-import { getCompletedProblems, subscribeProgress } from "../progress";
+import { useLabProgress } from "../hooks/useLabProgress";
+import { useAuth } from "../../auth/AuthProvider";
 import "../lab.css";
 
 const difficultyOptions = ["all", "Easy", "Medium", "Hard"] as const;
@@ -18,9 +19,12 @@ export default function LabProblemsList() {
   const [isLoading, setIsLoading] = useState(true);
   const [query, setQuery] = useState("");
   const [difficulty, setDifficulty] = useState<DifficultyFilter>("all");
-  const [completedIds, setCompletedIds] = useState<Set<number>>(
-    new Set(getCompletedProblems())
-  );
+  const { user } = useAuth();
+  const {
+    completedIds,
+    isLoading: isProgressLoading,
+    error: progressError,
+  } = useLabProgress(user?.id ?? null);
 
   useEffect(() => {
     let isMounted = true;
@@ -36,6 +40,10 @@ export default function LabProblemsList() {
           navigate("/login", { replace: true });
           return;
         }
+        if (err instanceof ApiError && err.status === 403) {
+          navigate("/pending", { replace: true });
+          return;
+        }
         setError(err instanceof Error ? err.message : "Failed to load problems.");
       })
       .finally(() => {
@@ -47,13 +55,6 @@ export default function LabProblemsList() {
       isMounted = false;
     };
   }, [navigate]);
-
-  useEffect(() => {
-    const unsubscribe = subscribeProgress(() => {
-      setCompletedIds(new Set(getCompletedProblems()));
-    });
-    return unsubscribe;
-  }, []);
 
   const filteredProblems = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -107,20 +108,25 @@ export default function LabProblemsList() {
           </label>
         </div>
         <div className="lab-toolbar-meta">
-          {isLoading ? "Loading..." : `${filteredProblems.length} results`}
+          {isLoading || isProgressLoading
+            ? "Loading..."
+            : `${filteredProblems.length} results`}
         </div>
       </div>
 
-      {isLoading ? (
+      {isLoading || isProgressLoading ? (
         <div className="lab-card">Loading problems...</div>
-      ) : error ? (
-        <div className="lab-card lab-error">{error}</div>
+      ) : error || progressError ? (
+        <div className="lab-card lab-error">
+          {error ?? progressError ?? "Failed to load progress."}
+        </div>
       ) : filteredProblems.length === 0 ? (
         <div className="lab-card lab-empty">No problems match those filters.</div>
       ) : (
         <div className="lab-problem-grid">
           {filteredProblems.map((problem) => {
-            const isCompleted = completedIds.has(problem.id);
+            const isCompleted =
+              !isProgressLoading && completedIds.has(problem.id);
 
             return (
               <article

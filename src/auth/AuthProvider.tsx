@@ -1,28 +1,39 @@
 import {
     createContext,
+    useCallback,
     useContext,
     useEffect,
     useMemo,
+    useRef,
     useState,
     type ReactNode,
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 
-export type UserRole = "pending" | "student" | "admin";
+type UserRole = "admin" | "student" | "pending" | "blocked" | string;
+
+type Profile = {
+    id: string;
+    role: UserRole | null;
+    email: string | null;
+};
 
 type AuthContextValue = {
     session: Session | null;
     user: User | null;
-    role: UserRole | null;
     loading: boolean;
+    profile: Profile | null;
+    role: UserRole | null;
+    isApproved: boolean;
+    profileLoading: boolean;
+    refreshProfile: () => Promise<Profile | null>;
     signUp: (
         email: string,
         password: string
     ) => Promise<{ user: User | null; session: Session | null }>;
     signIn: (email: string, password: string) => Promise<void>;
     signOut: () => Promise<void>;
-    refreshProfile: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -30,103 +41,140 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [session, setSession] = useState<Session | null>(null);
     const [user, setUser] = useState<User | null>(null);
-    const [role, setRole] = useState<UserRole | null>(null);
     const [loading, setLoading] = useState(true);
-
-    const loadRole = async (u: User | null) => {
-        if (!u) {
-            setRole(null);
-            return;
-        }
-
-        const { data, error } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", u.id)
-            .single();
-
-        if (error) {
-            // if we can't read the role for some reason, default to pending (safest)
-            console.warn("failed to load role:", error.message);
-            setRole("pending");
-            return;
-        }
-
-        const r = (data?.role as UserRole | undefined) ?? "pending";
-        setRole(r);
-    };
+    const [profile, setProfile] = useState<Profile | null>(null);
+    const [profileLoading, setProfileLoading] = useState(false);
+    const isMountedRef = useRef(true);
 
     useEffect(() => {
-        let isMounted = true;
+        isMountedRef.current = true;
+        const timeoutId = window.setTimeout(() => {
+            if (!isMountedRef.current) return;
+            setLoading(false);
+        }, 6000);
 
-        supabase.auth
-            .getSession()
-            .then(async ({ data }) => {
-                if (!isMounted) return;
-                const s = data.session ?? null;
-                const u = s?.user ?? null;
-                setSession(s);
-                setUser(u);
-                await loadRole(u);
-                setLoading(false);
-            })
-            .catch(() => {
-                if (!isMounted) return;
+        const settleLoading = () => {
+            window.clearTimeout(timeoutId);
+            if (!isMountedRef.current) return;
+            setLoading(false);
+        };
+
+        // on refresh, supabase restores session async. we must wait for it.
+        (async () => {
+            try {
+                const { data, error } = await supabase.auth.getSession();
+                if (!isMountedRef.current) return;
+
+                if (error) {
+                    // keep it simple: still allow app to render, just treat as signed out
+                    setSession(null);
+                    setUser(null);
+                    setProfile(null);
+                    setProfileLoading(false);
+                    settleLoading();
+                    return;
+                }
+
+                setSession(data.session ?? null);
+                setUser(data.session?.user ?? null);
+                setProfileLoading(Boolean(data.session?.user));
+                settleLoading();
+            } catch {
+                if (!isMountedRef.current) return;
                 setSession(null);
                 setUser(null);
-                setRole(null);
-                setLoading(false);
-            });
-
-        const { data: authListener } = supabase.auth.onAuthStateChange(
-            async (_event, nextSession) => {
-                const s = nextSession ?? null;
-                const u = nextSession?.user ?? null;
-                setSession(s);
-                setUser(u);
-                await loadRole(u);
-                setLoading(false);
+                setProfile(null);
+                setProfileLoading(false);
+                settleLoading();
             }
-        );
+        })();
+
+        // listeners
+        const { data: sub } = supabase.auth.onAuthStateChange((_event, newSession) => {
+            if (!isMountedRef.current) return;
+            setSession(newSession);
+            setUser(newSession?.user ?? null);
+            if (!newSession?.user) {
+                setProfile(null);
+                setProfileLoading(false);
+            } else {
+                setProfileLoading(true);
+            }
+            settleLoading();
+        });
 
         return () => {
-            isMounted = false;
-            authListener.subscription.unsubscribe();
+            isMountedRef.current = false;
+            sub.subscription.unsubscribe();
+            window.clearTimeout(timeoutId);
         };
     }, []);
+
+    const refreshProfile = useCallback(async () => {
+        if (!user) {
+            setProfile(null);
+            setProfileLoading(false);
+            return null;
+        }
+
+        setProfileLoading(true);
+        const { data, error } = await supabase
+            .from("profiles")
+            .select("id, role, email")
+            .eq("id", user.id)
+            .maybeSingle();
+
+        if (error) {
+            setProfile(null);
+            setProfileLoading(false);
+            return null;
+        }
+
+        if (!data) {
+            const fallbackProfile = {
+                id: user.id,
+                role: "pending" as UserRole,
+                email: user.email ?? null,
+            };
+            setProfile(fallbackProfile);
+            setProfileLoading(false);
+            return fallbackProfile;
+        }
+
+        setProfile(data as Profile);
+        setProfileLoading(false);
+        return data as Profile;
+    }, [user]);
+
+    useEffect(() => {
+        if (!user) {
+            setProfile(null);
+            setProfileLoading(false);
+            return;
+        }
+
+        refreshProfile().catch(() => {
+            // keep auth usable even if profile fetch fails
+        });
+    }, [refreshProfile, user]);
 
     const value = useMemo<AuthContextValue>(
         () => ({
             session,
             user,
-            role,
             loading,
-            refreshProfile: async () => {
-                await loadRole(user);
-            },
-            signUp: async (email, password) => {
+            profile,
+            role: profile?.role ?? null,
+            isApproved:
+                profile?.role === "student" || profile?.role === "admin",
+            profileLoading,
+            refreshProfile,
+            signUp: async (email: string, password: string) => {
                 const { data, error } = await supabase.auth.signUp({ email, password });
                 if (error) throw error;
-
-                const u = data.user ?? null;
-                const s = data.session ?? null;
-
-                // best-effort upsert (trigger should create the profile)
-                if (u) {
-                    const { error: profileError } = await supabase
-                        .from("profiles")
-                        .upsert({ id: u.id, email: u.email ?? email }, { onConflict: "id" });
-
-                    if (profileError) {
-                        console.warn("profile upsert failed (ignored):", profileError.message);
-                    }
-
-                    await loadRole(u);
-                }
-
-                return { user: u, session: s };
+                return { user: data.user ?? null, session: data.session ?? null };
             },
-            signIn: async (email, password) => {
+            signIn: async (email: string, password: string) => {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
                     password,
@@ -134,20 +182,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 if (error) throw error;
             },
             signOut: async () => {
-                const { error } = await supabase.auth.signOut();
-                if (error) throw error;
+                try {
+                    const { error } = await supabase.auth.signOut({ scope: "local" });
+                    if (error) throw error;
+                } finally {
+                    setSession(null);
+                    setUser(null);
+                    setProfile(null);
+                    setProfileLoading(false);
+                    setLoading(false);
+                }
             },
         }),
-        [loading, role, session, user]
+        [session, user, loading, profile, profileLoading, refreshProfile]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-    const context = useContext(AuthContext);
-    if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider");
-    }
-    return context;
+    const ctx = useContext(AuthContext);
+    if (!ctx) throw new Error("useAuth must be used within AuthProvider");
+    return ctx;
 }

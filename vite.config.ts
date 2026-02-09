@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import fs from "fs";
 import path from "path";
@@ -7,8 +7,8 @@ import { pathToFileURL } from "url";
 function labApiDevPlugin() {
   return {
     name: "lab-api-dev",
-    configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
+    configureServer(server: any) {
+      server.middlewares.use(async (req: any, res: any, next: any) => {
         if (!req.url || !req.url.startsWith("/api/lab/")) {
           return next();
         }
@@ -38,7 +38,7 @@ function labApiDevPlugin() {
           if (req.method && req.method !== "GET" && req.method !== "HEAD") {
             const body = await new Promise((resolve, reject) => {
               let raw = "";
-              req.on("data", (chunk) => {
+              req.on("data", (chunk: any) => {
                 raw += chunk;
               });
               req.on("end", () => resolve(raw));
@@ -75,6 +75,15 @@ function labApiDevPlugin() {
 }
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [labApiDevPlugin(), react()],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+  for (const [key, value] of Object.entries(env)) {
+    if (process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+
+  return {
+    plugins: [labApiDevPlugin(), react()],
+  };
 });
