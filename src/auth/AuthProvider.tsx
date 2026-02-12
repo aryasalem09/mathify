@@ -203,24 +203,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         [session, user, loading, profile, profileLoading, refreshProfile]
     );
 
-      signIn: async (email, password) => {
-        if (!supabase) {
-          throw new Error("Auth is disabled locally (missing Supabase env vars).");
-        }
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-      },
-
-      signOut: async () => {
-        if (!supabase) return; // no-op locally
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
-      },
-    }),
-    [loading, role, session, user]
-  );
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
