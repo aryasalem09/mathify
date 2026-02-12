@@ -4,7 +4,8 @@ import { ApiError, getProblems } from "../api";
 import type { Problem } from "../types";
 import LabLayout from "../components/LabLayout";
 import { LAB_HOMEWORK_IDS, LAB_TESTS } from "../data";
-import { getCompletedProblems, subscribeProgress } from "../progress";
+import { useLabProgress } from "../hooks/useLabProgress";
+import { useAuth } from "../../auth/AuthProvider";
 import "../lab.css";
 
 export default function LabDashboard() {
@@ -12,9 +13,12 @@ export default function LabDashboard() {
   const [problems, setProblems] = useState<Problem[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [completedIds, setCompletedIds] = useState<Set<number>>(
-    new Set(getCompletedProblems())
-  );
+  const { user } = useAuth();
+  const {
+    completedIds,
+    isLoading: isProgressLoading,
+    error: progressError,
+  } = useLabProgress(user?.id ?? null);
 
   useEffect(() => {
     let isMounted = true;
@@ -30,6 +34,10 @@ export default function LabDashboard() {
           navigate("/login", { replace: true });
           return;
         }
+        if (err instanceof ApiError && err.status === 403) {
+          navigate("/pending", { replace: true });
+          return;
+        }
         setError(err instanceof Error ? err.message : "Failed to load dashboard.");
       })
       .finally(() => {
@@ -41,13 +49,6 @@ export default function LabDashboard() {
       isMounted = false;
     };
   }, [navigate]);
-
-  useEffect(() => {
-    const unsubscribe = subscribeProgress(() => {
-      setCompletedIds(new Set(getCompletedProblems()));
-    });
-    return unsubscribe;
-  }, []);
 
   const homeworkProblems = useMemo(() => {
     const idSet = new Set(LAB_HOMEWORK_IDS);
@@ -82,10 +83,12 @@ export default function LabDashboard() {
               Focus on one problem at a time and track your progress here.
             </p>
           </div>
-          {isLoading ? (
+          {isLoading || isProgressLoading ? (
             <p className="lab-muted">Loading homework...</p>
-          ) : error ? (
-            <p className="lab-error">{error}</p>
+          ) : error || progressError ? (
+            <p className="lab-error">
+              {error ?? progressError ?? "Failed to load progress."}
+            </p>
           ) : (
             <div className="lab-split">
               <div>

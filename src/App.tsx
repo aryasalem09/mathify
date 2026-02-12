@@ -18,10 +18,20 @@ import Signup from "./pages/Signup";
 import Enroll from "./pages/Enroll";
 import Terms from "./pages/Terms";
 import Refund from "./pages/Refund";
+import Pending from "./pages/Pending";
 import LabDashboard from "./lab/pages/LabDashboard";
 import LabProblemsList from "./lab/pages/LabProblemsList";
 import LabProblem from "./lab/pages/LabProblem";
-import ProtectedRoute from "./auth/ProtectedRoute";
+import LabAssignments from "./lab/pages/LabAssignments";
+import RequireAuth from "./auth/RequireAuth";
+import RequireAdmin from "./admin/RequireAdmin";
+import AdminOverview from "./admin/pages/AdminOverview";
+import AdminStudents from "./admin/pages/AdminStudents";
+import AdminAssignments from "./admin/pages/AdminAssignments";
+import AdminSubmissions from "./admin/pages/AdminSubmissions";
+import AdminGrades from "./admin/pages/AdminGrades";
+import AdminSettings from "./admin/pages/AdminSettings";
+import AdminStudentDetail from "./admin/pages/AdminStudentDetail";
 
 const titles: Record<string, string> = {
   "/": "Math Math Simple - Mathlify",
@@ -34,12 +44,14 @@ const titles: Record<string, string> = {
   "/enroll": "Math Math Simple - Mathlify",
   "/terms": "Math Math Simple - Mathlify",
   "/refund": "Math Math Simple - Mathlify",
+  "/pending": "Awaiting Approval - Mathlify",
 };
 
 const labTitles: Record<string, string> = {
   "/lab": "Problems List",
   "/lab/dashboard": "Dashboard",
   "/lab/problems": "Problems List",
+  "/lab/assignments": "Assignments",
 };
 
 function LabProblemAlias() {
@@ -49,7 +61,8 @@ function LabProblemAlias() {
 
 export default function App() {
   const { pathname } = useLocation();
-  const showSiteChrome = !pathname.startsWith("/lab");
+  const showSiteChrome =
+    !pathname.startsWith("/lab") && !pathname.startsWith("/admin");
 
   useEffect(() => {
     if (pathname.startsWith("/lab/problem/")) {
@@ -80,59 +93,137 @@ export default function App() {
           <Route path="/enroll" element={<Enroll />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/refund" element={<Refund />} />
-          <Route path="/lab" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/pending"
+            element={
+              <RequireAuth allowPending>
+                <Pending />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/lab"
+            element={
+              <RequireAuth>
+                <Navigate to="/lab/dashboard" replace />
+              </RequireAuth>
+            }
+          />
           <Route path="/lab/login" element={<Navigate to="/login" replace />} />
           <Route
             path="/lab/dashboard"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <LabDashboard />
-              </ProtectedRoute>
+              </RequireAuth>
             }
           />
           <Route
             path="/lab/problems"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <LabProblemsList />
-              </ProtectedRoute>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/lab/assignments"
+            element={
+              <RequireAuth>
+                <LabAssignments />
+              </RequireAuth>
             }
           />
           <Route
             path="/lab/problem/:id"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <LabProblem />
-              </ProtectedRoute>
+              </RequireAuth>
             }
           />
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <Navigate to="/lab/dashboard" replace />
-              </ProtectedRoute>
+              </RequireAuth>
             }
           />
           <Route
             path="/problems"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <Navigate to="/lab/problems" replace />
-              </ProtectedRoute>
+              </RequireAuth>
             }
           />
           <Route
             path="/problems/:id"
             element={
-              <ProtectedRoute>
+              <RequireAuth>
                 <LabProblemAlias />
-              </ProtectedRoute>
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <RequireAdmin>
+                <AdminOverview />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/students"
+            element={
+              <RequireAdmin>
+                <AdminStudents />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/assignments"
+            element={
+              <RequireAdmin>
+                <AdminAssignments />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/submissions"
+            element={
+              <RequireAdmin>
+                <AdminSubmissions />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/grades"
+            element={
+              <RequireAdmin>
+                <AdminGrades />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <RequireAdmin>
+                <AdminSettings />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="/admin/student/:id"
+            element={
+              <RequireAdmin>
+                <AdminStudentDetail />
+              </RequireAdmin>
             }
           />
         </Routes>
       </main>
-
       {showSiteChrome ? <Footer /> : null}
     </div>
   );

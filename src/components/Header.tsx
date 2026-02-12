@@ -3,19 +3,25 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthProvider";
 
 const defaultLogo = "/Images/mathlify_logo.png";
-const termsLogo = "/Images/mathlify_logo_full_white.png";
 
 export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { session, user, role, isApproved, signOut } = useAuth();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  
+  const isAuthed = !!session;
 
-  const logoSrc = pathname === "/terms" ? termsLogo : defaultLogo;
+  const logoSrc = defaultLogo;
 
-  const ctaLabel = user ? "Go to Labs" : "Fill Out The Interest Form!";
-  const ctaPath = user ? "/lab/dashboard" : "/enroll";
+  const ctaLabel = isAuthed
+        ? isApproved
+            ? "Go to Labs"
+            : "Awaiting approval"
+        : "Fill Out The Interest Form!";
+  
+  const ctaPath = isAuthed ? (isApproved ? "/lab/dashboard" : "/pending") : "/enroll";
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -25,12 +31,12 @@ export default function Header() {
   }, [pathname]);
 
   const handleLogout = async () => {
-    try {
-      await signOut();
-    } finally {
-      closeMobileMenu();
-      navigate("/");
-    }
+      try {
+          await signOut();
+      } finally {
+          closeMobileMenu();
+          navigate("/", { replace: true });
+      }
   };
 
   return (
@@ -50,8 +56,13 @@ export default function Header() {
       <div className="header-actions">
         {user?.email ? <span className="nav-user">{user.email}</span> : null}
 
-        {user ? (
+        {isAuthed ? (
           <>
+            {role === "admin" ? (
+                <Link to="/admin" className="nav-button nav-auth-button">
+                    Admin
+                </Link>
+            ) : null}
             <a
               className="nav-button nav-auth-button"
               type="button"
@@ -109,8 +120,17 @@ export default function Header() {
         <div className="mobile-actions">
           {user?.email ? <div className="nav-user">{user.email}</div> : null}
 
-          {user ? (
+          {isAuthed ? (
             <>
+              {role === "admin" ? (
+                  <Link
+                      to="/admin"
+                      className="nav-button nav-auth-button"
+                      onClick={closeMobileMenu}
+                  >
+                      Admin
+                  </Link>
+              ) : null}
               <a
                 className="nav-button nav-auth-button"
                 type="button"

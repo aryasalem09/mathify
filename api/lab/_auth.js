@@ -1,32 +1,4 @@
-﻿import crypto from "crypto";
-
-const COOKIE_NAME = "lab_auth";
-const MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
-
-const isProduction = process.env.NODE_ENV === "production";
-
-function base64UrlEncode(value) {
-  return Buffer.from(value)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/g, "");
-}
-
-function base64UrlDecode(value) {
-  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
-  const padded = normalized.padEnd(
-    normalized.length + ((4 - (normalized.length % 4)) % 4),
-    "="
-  );
-  return Buffer.from(padded, "base64").toString("utf8");
-}
-
-function sign(value, secret) {
-  return base64UrlEncode(
-    crypto.createHmac("sha256", secret).update(value).digest()
-  );
-}
+import { createClient } from "@supabase/supabase-js";
 
 function createError(status, message) {
   const error = new Error(message);
@@ -34,109 +6,96 @@ function createError(status, message) {
   return error;
 }
 
-function parseCookies(req) {
-  const header = req.headers.cookie || "";
-  return header.split(";").reduce((acc, part) => {
-    const [rawKey, ...rest] = part.trim().split("=");
-    if (!rawKey) return acc;
-    acc[rawKey] = decodeURIComponent(rest.join("="));
-    return acc;
-  }, {});
-}
+function getSupabaseConfig() {
+  const supabaseUrl =
+    process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const supabaseAnonKey =
+    process.env.SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 
-function createToken(payload, secret) {
-  const encoded = base64UrlEncode(JSON.stringify(payload));
-  const signature = sign(encoded, secret);
-  return `${encoded}.${signature}`;
-}
-
-function verifyToken(token, secret) {
-  const [encoded, signature] = token.split(".");
-  if (!encoded || !signature) return null;
-
-  const expected = sign(encoded, secret);
-  if (expected.length !== signature.length) return null;
-
-  const isValid = crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expected)
-  );
-  if (!isValid) return null;
-
-  try {
-    const payload = JSON.parse(base64UrlDecode(encoded));
-    if (!payload || typeof payload.username !== "string") return null;
-    if (typeof payload.exp === "number" && Date.now() > payload.exp) {
-      return null;
-    }
-    return payload;
-  } catch {
-    return null;
-  }
-}
-
-export function requireUser(req) {
-  const secret = process.env.LAB_AUTH_SECRET;
-  if (!secret) {
-    throw createError(500, "LAB_AUTH_SECRET is not set");
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw createError(
+      500,
+      "Supabase env vars missing. Set SUPABASE_URL and SUPABASE_ANON_KEY."
+    );
   }
 
-  const cookies = parseCookies(req);
-  const token = cookies[COOKIE_NAME];
+  return { supabaseUrl, supabaseAnonKey };
+}
+
+let cachedClient = null;
+
+function getSupabaseClient() {
+  if (cachedClient) return cachedClient;
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig();
+  cachedClient = createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+  });
+  return cachedClient;
+}
+
+function getAccessTokenFromRequest(req) {
+  const header = req.headers?.authorization || req.headers?.Authorization || "";
+  return header.startsWith("Bearer ") ? header.slice(7) : null;
+}
+
+function getSupabaseClientForToken(token) {
+  const { supabaseUrl, supabaseAnonKey } = getSupabaseConfig();
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+    global: {
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  });
+}
+
+export async function requireSupabaseUser(req) {
+  const token = getAccessTokenFromRequest(req);
+
   if (!token) {
     throw createError(401, "Unauthorized");
   }
 
-  const payload = verifyToken(token, secret);
-  if (!payload) {
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase.auth.getUser(token);
+
+  if (error || !data?.user) {
     throw createError(401, "Unauthorized");
   }
 
-  return { username: payload.username };
+  return data.user;
 }
 
-export function setAuthCookie(res, username) {
-  const secret = process.env.LAB_AUTH_SECRET;
-  if (!secret) {
-    throw createError(500, "LAB_AUTH_SECRET is not set");
+export async function requireApprovedUser(req) {
+  const token = getAccessTokenFromRequest(req);
+  if (!token) {
+    throw createError(401, "Unauthorized");
   }
 
-  const payload = {
-    username,
-    exp: Date.now() + MAX_AGE_MS,
-  };
-  const token = createToken(payload, secret);
-  const maxAgeSeconds = Math.floor(MAX_AGE_MS / 1000);
-  const cookieParts = [
-    `${COOKIE_NAME}=${encodeURIComponent(token)}`,
-    "Path=/",
-    `Max-Age=${maxAgeSeconds}`,
-    "HttpOnly",
-    "SameSite=Lax",
-  ];
+  const user = await requireSupabaseUser(req);
+  const supabase = getSupabaseClientForToken(token);
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .maybeSingle();
 
-  if (isProduction) {
-    cookieParts.push("Secure");
+  if (error || !data) {
+    throw createError(403, "Awaiting approval");
   }
 
-  res.setHeader("Set-Cookie", cookieParts.join("; "));
-}
-
-export function clearAuthCookie(res) {
-  const cookieParts = [
-    `${COOKIE_NAME}=`,
-    "Path=/",
-    "Max-Age=0",
-    "Expires=Thu, 01 Jan 1970 00:00:00 GMT",
-    "HttpOnly",
-    "SameSite=Lax",
-  ];
-
-  if (isProduction) {
-    cookieParts.push("Secure");
+  if (data.role !== "student" && data.role !== "admin") {
+    throw createError(403, "Awaiting approval");
   }
 
-  res.setHeader("Set-Cookie", cookieParts.join("; "));
+  return user;
 }
 
 export function parseJsonBody(req) {

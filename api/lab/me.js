@@ -1,4 +1,4 @@
-import { requireUser } from "./_auth.js";
+import { requireSupabaseUser } from "./_auth.js";
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
@@ -6,7 +6,7 @@ function sendJson(res, status, payload) {
   res.end(JSON.stringify(payload));
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
     sendJson(res, 405, { error: "Method not allowed" });
@@ -14,8 +14,11 @@ export default function handler(req, res) {
   }
 
   try {
-    const user = requireUser(req);
-    sendJson(res, 200, { ok: true, user });
+    const user = await requireSupabaseUser(req);
+    sendJson(res, 200, {
+      ok: true,
+      user: { id: user.id, email: user.email ?? null },
+    });
   } catch (error) {
     const status = error?.status || 500;
     sendJson(res, status, { error: error?.message || "Server error" });

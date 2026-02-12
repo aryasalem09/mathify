@@ -59,7 +59,7 @@ html, body, #root {
 
 /* nav */
 
-nav a {
+.site-header nav a {
     color: #fff;
     text-decoration: none;
     font-size: 18px;
@@ -70,11 +70,11 @@ nav a {
     transition: color 0.3s ease, background 0.3s ease;
 }
 
-nav a:hover {
+.site-header nav a:hover {
     color: #00d4ff;
 }
 
-nav a::after {
+.site-header nav a::after {
     content: '';
     display: block;
     width: 0;
@@ -84,7 +84,7 @@ nav a::after {
     margin: 0 auto;
 }
 
-nav a:hover::after {
+.site-header nav a:hover::after {
     width: 100%;
 }
 
@@ -783,7 +783,7 @@ strong {
   .stats-grid{ grid-template-columns: repeat(2, 1fr); }
   .card-grid{ grid-template-columns: repeat(2, 1fr); }
   .how-grid{ grid-template-columns: 1fr; }
-  nav{ position: static; transform: none; }
+  .site-header nav{ position: static; transform: none; }
 }
 @media (max-width: 520px){
   .card-grid{ grid-template-columns: 1fr; }
