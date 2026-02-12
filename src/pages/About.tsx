@@ -93,7 +93,7 @@ export default function About() {
             <article className="team-card">
               <img
                 className="team-img"
-                src="/Images/team/yourname.jpg"
+                src="/Images/Arya.png"
                 alt="Instructor photo"
               />
               <div className="team-body">
@@ -109,7 +109,7 @@ export default function About() {
             <article className="team-card">
               <img
                 className="team-img"
-                src="/Images/team/friend.jpg"
+                src="/Images/Mohammed.png"
                 alt="Instructor photo"
               />
               <div className="team-body">
@@ -126,15 +126,14 @@ export default function About() {
             <article className="team-card">
               <img
                 className="team-img"
-                src="/Images/team/csa.jpg"
+                src="/Images/Alice.webp"
                 alt="Instructor photo"
               />
               <div className="team-body">
                 <h3>Alice Yuan</h3>
                 <p className="role">Marketing Manager & Instructor</p>
                 <ul className="mini-list">
-                  <li>• Teaches CSA, Geometry, Alg I/II</li>
-                  <li>• Does marketing or somethingn</li>
+                  <li>• Teaches Geometry, Alg I/II</li>
                   <li>• Style: learn-by-building + patterns</li>
                 </ul>
               </div>

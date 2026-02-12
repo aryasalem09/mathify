@@ -47,7 +47,7 @@ export default function Header() {
       </nav>
 
       {/* Desktop actions */}
-      <div className="header-actions nav-desktop">
+      <div className="header-actions">
         {user?.email ? <span className="nav-user">{user.email}</span> : null}
 
         {user ? (

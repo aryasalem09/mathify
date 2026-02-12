@@ -232,7 +232,7 @@ export default function Home() {
             <Link to="/enroll" className="cta-button">
             I'm Interested
           </Link>
-          <Link to="mailto:[your-email]" className="cta-button">
+          <Link to="mailto:mathlifyofficial@gmail.com" className="cta-button">
             Contact Us
           </Link>
           </div>

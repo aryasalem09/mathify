@@ -164,7 +164,7 @@ export default function Courses() {
                 </div>
                 <a
                   className="outline-link"
-                  href="outlines/precalc-outline.pdf"
+                  href="outlines/precal-outline.pdf"
                   target="_blank"
                 >
                   Download course outline (PDF)

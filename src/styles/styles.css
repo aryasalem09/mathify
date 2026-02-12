@@ -10,15 +10,16 @@ html, body {
 }
 
 /* header  */
-header {
+.site-header {
     background-color: #000;
     color: #fff;
-    position: sticky;
     top: 0; 
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
+    display: grid;
+    position: relative;
     align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     justify-content: space-between;
     padding: 10px 20px;
 }
@@ -40,6 +41,7 @@ html, body, #root {
 
 /* logo */
 .logo img {
+  justify-self: start;
     height: 60px;
     margin-right: 15px;
     padding: 20px 0px;
@@ -56,13 +58,6 @@ html, body, #root {
 }
 
 /* nav */
-nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 36px; 
-}
 
 nav a {
     color: #fff;
@@ -94,11 +89,13 @@ nav a:hover::after {
 }
 
 .header-actions{
-    display: flex;
     align-items: center;
-    gap: 12px;
     flex-wrap: wrap;
     justify-content: flex-end;
+    justify-self: end;
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
 }
 
 .nav-user{
@@ -1113,7 +1110,7 @@ strong {
 }
 .team-img{
   width: 100%;
-  height: 210px;
+  height: 400px;
   object-fit: cover;
   display: block;
 }
@@ -1180,7 +1177,13 @@ strong {
 
 
 /* Desktop vs mobile visibility */
-.nav-desktop{ display: flex; gap: 15px; }
+.nav-desktop{ 
+  justify-self: center;
+  display: flex;
+  gap: 15px;
+  white-space: nowrap;
+  align-items: center;
+}
 .nav-toggle, .nav-mobile{ display: none; }
 
 /* Hamburger button */
@@ -1188,6 +1191,7 @@ strong {
   width: 44px;
   height: 44px;
   border: 1px solid rgba(255,255,255,.15);
+  justify-self: end;
   border-radius: 12px;
   display: grid;
   place-items: center;
@@ -1293,7 +1297,12 @@ background: transparent !important;
 
 /* Responsive switch */
 @media (max-width: 1200px){
+  .site-header {
+    grid-template-columns: auto 1fr auto; /* left | spacer | right */
+  }
+
   .nav-desktop{ display: none; }
+  .header-actions{ display: none; }
   .nav-toggle{ display: grid; }
   .nav-mobile.open{ display: flex; }
 }

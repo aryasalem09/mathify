@@ -68,7 +68,6 @@ export default function App() {
   return (
     <div className={showSiteChrome ? "app" : undefined}>
       {showSiteChrome ? <Header /> : null}
-
       <main className={showSiteChrome ? "app-main" : undefined}>
         <Routes>
           <Route path="/" element={<Home />} />
