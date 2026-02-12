@@ -27,8 +27,8 @@ export default function Courses() {
           </div>
 
           <div className="hero-cta">
-            <Link to="/signup" className="cta-button">
-              Get a Free Trial Class
+            <Link to="/enroll" className="cta-button">
+              Fill Out Interest Form
             </Link>
             <a href="/courses#pricing" className="secondary-button">
               See Pricing
@@ -164,7 +164,7 @@ export default function Courses() {
                 </div>
                 <a
                   className="outline-link"
-                  href="outlines/precalc-outline.pdf"
+                  href="outlines/precal-outline.pdf"
                   target="_blank"
                 >
                   Download course outline (PDF)
@@ -361,7 +361,7 @@ export default function Courses() {
         <div style={{ paddingBottom: "60px" }} className="container cta-box">
           <h2>Ready to register your child?</h2>
           <p style={{ marginBottom: "40px" }}>Fill out our interest form! We'll follow up with more details. We even offer a free trial class.</p>
-          <Link to="/signup" className="cta-button">
+          <Link to="/enroll" className="cta-button">
             I'm Interested
           </Link>
         </div>

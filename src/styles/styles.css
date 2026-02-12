@@ -13,18 +13,35 @@ html, body {
 .site-header {
     background-color: #000;
     color: #fff;
-    position: sticky;
     top: 0; 
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
+    display: grid;
+    position: relative;
     align-items: center;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     justify-content: space-between;
     padding: 10px 20px;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
+.app {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+}
+
+
 /* logo */
 .logo img {
+  justify-self: start;
     height: 60px;
     margin-right: 15px;
     padding: 20px 0px;
@@ -41,13 +58,6 @@ html, body {
 }
 
 /* nav */
-.site-header nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 36px; 
-}
 
 .site-header nav a {
     color: #fff;
@@ -79,11 +89,13 @@ html, body {
 }
 
 .header-actions{
-    display: flex;
     align-items: center;
-    gap: 12px;
     flex-wrap: wrap;
     justify-content: flex-end;
+    justify-self: end;
+    display: flex;
+    gap: 12px;
+    white-space: nowrap;
 }
 
 .nav-user{
@@ -113,13 +125,13 @@ html, body {
 .nav-auth-button{
     padding: 12px 20px;
     font-size: 1rem;
-    background: rgba(255,255,255,.14);
+    background: rgba(255,255,255,.14) !important;
     border: 1px solid rgba(255,255,255,.35);
 }
 
-.nav-link-button:hover{
-    background: rgba(255,255,255,.18);
-    color: #00d4ff;
+.nav-auth-button:hover{
+    background: rgba(255,255,255,.18) !important;
+    color: #00d4ff !important; 
 }
 
 .nav-dropdown {
@@ -486,6 +498,7 @@ a.nav-button {
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .nav-button:hover {
@@ -1097,7 +1110,7 @@ strong {
 }
 .team-img{
   width: 100%;
-  height: 210px;
+  height: 400px;
   object-fit: cover;
   display: block;
 }
@@ -1157,14 +1170,20 @@ strong {
   margin-top: 22px;
 }
 
-@media (max-width: 900px){
+@media (max-width: 1200px){
   .about-badges{ grid-template-columns: repeat(2, 1fr); }
   .two-col{ grid-template-columns: 1fr; }
 }
 
 
 /* Desktop vs mobile visibility */
-.nav-desktop{ display: flex; gap: 30px; }
+.nav-desktop{ 
+  justify-self: center;
+  display: flex;
+  gap: 15px;
+  white-space: nowrap;
+  align-items: center;
+}
 .nav-toggle, .nav-mobile{ display: none; }
 
 /* Hamburger button */
@@ -1172,6 +1191,7 @@ strong {
   width: 44px;
   height: 44px;
   border: 1px solid rgba(255,255,255,.15);
+  justify-self: end;
   border-radius: 12px;
   display: grid;
   place-items: center;
@@ -1206,7 +1226,7 @@ background: transparent !important;
   background: #0b0b0b;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 16px;
-  padding: 14px;
+  padding: 20px 16px;
   box-shadow: 0 18px 50px rgba(0,0,0,.45);
   display: none;
   flex-direction: column;
@@ -1218,6 +1238,28 @@ background: transparent !important;
   text-decoration: none;
   padding: 10px 10px;
   border-radius: 12px;
+}
+
+.mobile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.mobile-actions .nav-button,
+.mobile-actions .nav-link-button {
+  flex: 1 1 auto;
+  min-width: 140px;
+  text-align: center;
+}
+
+.mobile-actions .nav-user {
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: center;
+  opacity: 0.85;
+  font-size: 14px;
 }
 
 
@@ -1254,8 +1296,13 @@ background: transparent !important;
 }
 
 /* Responsive switch */
-@media (max-width: 900px){
+@media (max-width: 1200px){
+  .site-header {
+    grid-template-columns: auto 1fr auto; /* left | spacer | right */
+  }
+
   .nav-desktop{ display: none; }
+  .header-actions{ display: none; }
   .nav-toggle{ display: grid; }
   .nav-mobile.open{ display: flex; }
 }
@@ -1297,7 +1344,7 @@ button:focus-visible {
   }
 }
 
-@media (min-width: 901px) {
+@media (min-width: 1200px) {
   .hamburger {
     display: none;
   }
